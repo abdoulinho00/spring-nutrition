@@ -13,8 +13,8 @@ this is a java web projects and uses the following frameworks :
 - tomcat : as web container
 
 ## provisionning 
-git clone git@github.com:abdoulinho00/spring-nutrition.git
-cd spring-nutrition
+git clone git@github.com:abdoulinho00/spring-nutrition.git <br/>
+cd spring-nutrition <br/>
 mvn clean package 
 sudo ansible-playbook -i inventory spring-nutrition.yml
 ## access
