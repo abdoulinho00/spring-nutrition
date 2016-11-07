@@ -15,8 +15,8 @@ this is a java web projects and uses the following frameworks :
 ## provisionning 
 git clone git@github.com:abdoulinho00/spring-nutrition.git <br/>
 cd spring-nutrition <br/>
-mvn clean package 
-sudo ansible-playbook -i inventory spring-nutrition.yml
+mvn clean package <br/>
+sudo ansible-playbook -i inventory spring-nutrition.yml <br/>
 ## access
 http://localhost:8080/medidoc
 default admin account is admin:admin

@@ -1,0 +1,30 @@
+--- 
+
+
+- name: adding tomcat user
+  shell : adduser tomcat 
+  ignore_errors : yes
+
+- name : installing open-jdk-8
+  apt : name=openjdk-8-jdk state=present
+
+- name : Installing Tomcat 8.0.38
+  unarchive: src="../../files/apache-tomcat-8.0.38.tar.gz" dest=/opt  owner="tomcat" group="tomcat"
+
+
+- name : creating symbolik link of tomcat
+  file : src=/opt/apache-tomcat-8.0.38  dest=/opt/tomcat state=link  
+
+- name : Getting nutrition project
+  copy : src="../../files/medidoc.war" dest=/opt/tomcat/webapps  owner="tomcat" group="tomcat"
+
+
+- name : copying the tomcat service script
+  copy : src=templates/tomcat.service dest=/etc/systemd/system/tomcat.service owner="tomcat" group="tomcat" mode=0755
+
+- include : restart_tomcat.yml
+
+
+
+
+

@@ -1,0 +1,24 @@
+---
+
+- name: spring nutrition provisionning
+  hosts: nutrition
+  become: yes
+
+  pre_tasks : 
+    - name : ensure unzip is installed
+      apt : name="unzip" state="present"
+  roles : 
+    - role : ansible-role-mysql
+      mysql_root_password: "root"
+      mysql_users:
+        - name: nutrition
+          host: "%"
+          password: nutrition
+          priv: "medidoc.*:ALL"
+      mysql_databases:
+        - name: medidoc
+          collation: utf8_general_ci
+          encoding: utf8
+    - role : tomcat_role
+      
+

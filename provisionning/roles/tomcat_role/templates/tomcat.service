@@ -1,0 +1,14 @@
+
+[Unit]
+Description=tomcat service
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/opt/tomcat/bin/startup.sh
+ExecStop=/opt/tomcat/bin/shutdown.sh
+User=tomcat
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

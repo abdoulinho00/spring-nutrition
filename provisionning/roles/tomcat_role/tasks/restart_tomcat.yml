@@ -1,0 +1,13 @@
+---
+
+
+- name: Reload systemd service configuration
+  shell: 'systemctl daemon-reload'
+
+- name: Enable systemd service
+  shell: 'systemctl enable tomcat.service'
+
+- name: Restart systemd service
+  shell: 'systemctl restart tomcat.service'
+
+
