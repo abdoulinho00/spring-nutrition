@@ -2,7 +2,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<img
-			src="http://teachers.wrdsb.ca/nelsond/files/2013/01/Nutrition-Banner.jpgr"
+			src="http://teachers.wrdsb.ca/nelsond/files/2013/01/Nutrition-Banner.jpg"
 			width="100%" class="img-rounded" alt="fruiti" />
 	</div>
 </div>
