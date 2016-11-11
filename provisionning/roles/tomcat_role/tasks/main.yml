@@ -9,7 +9,7 @@
   apt : name=openjdk-8-jdk state=present
 
 - name : Installing Tomcat 8.0.38
-  unarchive: src="../../files/apache-tomcat-8.0.38.tar.gz" dest="/opt"  owner="tomcat" group="tomcat"
+  unarchive: src="files/apache-tomcat-8.0.38.tar.gz" dest="/opt"  owner="tomcat" group="tomcat"
 
 - name : changing permissions of tomcat directory
   file: path=/opt/apache-tomcat-8.0.38 owner=tomcat group=tomcat mode=0755
@@ -19,11 +19,16 @@
   file : src=/opt/apache-tomcat-8.0.38  dest="/opt/tomcat" state="link"  owner="tomcat" group="tomcat"
 
 - name : Getting nutrition project
-  copy : src="../../files/medidoc.war" dest="/opt/tomcat/webapps"  owner="tomcat" group="tomcat" mode=0755
+  copy : src="files/medidoc.war" dest="/opt/tomcat/webapps"  owner="tomcat" group="tomcat" mode=0755
 
 
 - name : copying the tomcat service script
-  copy : src=templates/tomcat.service dest=/etc/systemd/system/tomcat.service owner="tomcat" group="tomcat" mode=0755
+  template :
+    src: templates/tomcat.service
+    dest: /etc/systemd/system/tomcat.service
+    owner: "tomcat"
+    group: "tomcat"
+    mode: 0755
 
 - include : restart_tomcat.yml
 

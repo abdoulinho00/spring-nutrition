@@ -5,3 +5,6 @@ target/
 provisionning/files/
 *.log
 provisionning/.vagrant/
+.idea/
+spring-nutrition.iml
+provisionning/*.retry

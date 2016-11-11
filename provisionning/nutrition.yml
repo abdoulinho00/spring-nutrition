@@ -5,9 +5,14 @@
   become: yes
 
   pre_tasks : 
-    - name : ensure unzip is installed
-      apt : name="unzip" state="present"
-  roles : 
+    - name: ensure unzip is installed
+      apt: name="unzip" state="present"
+    - name: adding fake hostname
+      lineinfile:
+        dest:  /etc/hosts
+        regexp: '^192\.168\.5\.5*'
+        line: "192.168.5.5 medidoc.vm"
+  roles: 
     - role : ansible-role-mysql
       mysql_root_password: "root"
       mysql_users:
@@ -19,7 +24,11 @@
         - name: medidoc
           collation: utf8_general_ci
           encoding: utf8
-    - role : tomcat_role
-    - role: ansible-apache2
+    - role: tomcat_role
+    - role: apache2
+      servername: medidoc.vm
+      serveradmin: abderrahmane
+      appname: medidoc
+
       
 
