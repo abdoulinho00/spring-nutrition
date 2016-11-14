@@ -1,5 +1,7 @@
 package com.aelbardai.medidoc.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,8 +24,28 @@ public class PatientServiceImpl implements PatientService{
 
 	@Override
 	public Patient updatePatient(Patient patient) {
-		// TODO Auto-generated method stub
+		patientDao.updatePatient(patient);
 		return null;
+	}
+
+	@Override
+	public Patient getPatientById(long id) {
+		return patientDao.getPatientById(id);
+	}
+
+	@Override
+	public List<Patient> getAllPatient() {
+		return patientDao.getAllPatient();
+	}
+
+	@Override
+	public void deletePatient(Patient patient) {
+		patientDao.deletePatient(patient);
+	}
+
+	@Override
+	public void deletePatient(long patientId) {
+		patientDao.deletePatient(patientId);
 	}
 
 }

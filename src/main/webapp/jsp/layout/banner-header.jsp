@@ -1,4 +1,3 @@
-<c:url value="/" var="url" />
 <div class="container-fluid">
 	<div class="row">
 		<img
@@ -63,9 +62,9 @@
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false">Dropdown <span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Another action</a></li>
-								<li><a href="#">Something else here</a></li>
+								<li><a href="#">my profile</a></li>
+								<li><a href="#">my diet</a></li>
+								<li><a href="#">my workout</a></li>
 								<li role="separator" class="divider"></li>
 								<li><a href="#">Separated link</a></li>
 							</ul></li>

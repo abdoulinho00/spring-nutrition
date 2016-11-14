@@ -9,135 +9,124 @@
 	<div class="container">
 		<%@ include file="/jsp/layout/banner-header.jsp"%>
 
-		
+
 		<div class="form-container">
 			<form:form method="POST" modelAttribute="patient"
 				class="form-horizontal">
 				<div class="panel panel-primary">
-				<div class="panel-heading">Personal information</div>
-				<div class="panel-body">
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label class="col-md-3 control-lable" for="firstName">First
-								Name</label>
-							<div class="col-md-7">
-								<form:input type="text" path="firstname" id="firstName"
-									class="form-control input-sm" />
-								<div class="has-error">
-									<form:errors path="firstname" class="help-inline" />
+					<div class="panel-heading">Personal information</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-3 control-lable" for="fullname">
+									Full Name</label>
+								<div class="col-md-7">
+									<form:input type="text" path="fullname" id="fullname"
+										class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="fullname" class="help-inline" />
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label class="col-md-3 control-lable" for="lastName">Last
-								Name</label>
-							<div class="col-md-7">
-								<form:input type="text" path="lastname" id="lastName"
-									class="form-control input-sm" />
-								<div class="has-error">
-									<form:errors path="lastname" class="help-inline" />
-								</div>
-							</div>
-						</div>
-					</div>
 
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label class="col-md-3 control-lable" for="gender">Sex</label>
-							<div class="col-md-7" class="form-control input-sm">
-								<form:radiobutton path="gender" value="M" />
-								Male
-								<form:radiobutton path="gender" value="F" />
-								Female
-								<div class="has-error">
-									<form:errors path="gender" class="help-inline" />
-								</div>
-							</div>
-						</div>
-					</div>
 
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label class="col-md-3 control-lable" for="dob">Date of
-								birth</label>
-							<div class="col-md-7">
-								<form:input type="text" path="birthday" id="dob"
-									class="form-control input-sm" />
-								<div class="has-error">
-									<form:errors path="birthday" class="help-inline" />
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-3 control-lable" for="gender">Sex</label>
+								<div class="col-md-7" class="form-control input-sm">
+									<form:radiobutton path="gender" value="M" />
+									Male
+									<form:radiobutton path="gender" value="F" />
+									Female
+									<div class="has-error">
+										<form:errors path="gender" class="help-inline" />
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label class="col-md-3 control-lable" for="email">Email</label>
-							<div class="col-md-7">
-								<form:input type="text" path="email" id="email"
-									class="form-control input-sm" />
-								<div class="has-error">
-									<form:errors path="email" class="help-inline" />
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-3 control-lable" for="dob">Date of
+									birth</label>
+								<div class="col-md-7">
+									<form:input type="text" path="birthday" id="dob"
+										class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="birthday" class="help-inline" />
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label class="col-md-3 control-lable" for="phone">Phone Number</label>
-							<div class="col-md-7">
-								<form:input type="text" path="phoneNumber" id="phoneNumber"
-									class="form-control input-sm" />
-								<div class="has-error">
-									<form:errors path="phoneNumber" class="help-inline" />
+
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-3 control-lable" for="email">Email</label>
+								<div class="col-md-7">
+									<form:input type="text" path="email" id="email"
+										class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="email" class="help-inline" />
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label class="col-md-3 control-lable" for="adress">Adress</label>
-							<div class="col-md-7">
-								<form:input type="text" path="adress" id="adress"
-									class="form-control input-sm" />
-								<div class="has-error">
-									<form:errors path="adress" class="help-inline" />
+
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-3 control-lable" for="phone">Phone
+									Number</label>
+								<div class="col-md-7">
+									<form:input type="text" path="phoneNumber" id="phoneNumber"
+										class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="phoneNumber" class="help-inline" />
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label class="col-md-3 control-lable" for="allergies">Allergies</label>
-							<div class="col-md-7">
-								<form:input type="text" path="allergies" id="allergies"
-									class="form-control input-sm" />
-								<div class="has-error">
-									<form:errors path="allergies" class="help-inline" />
+
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-3 control-lable" for="adress">Adress</label>
+								<div class="col-md-7">
+									<form:input type="text" path="adress" id="adress"
+										class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="adress" class="help-inline" />
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label class="col-md-3 control-lable" for="history">History</label>
-							<div class="col-md-7">
-								<form:textarea type="text" path="history" id="history"
-									class="form-control input-sm" />
-								<div class="has-error">
-									<form:errors path="history" class="help-inline" />
+
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-3 control-lable" for="allergies">Allergies</label>
+								<div class="col-md-7">
+									<form:input type="text" path="allergies" id="allergies"
+										class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="allergies" class="help-inline" />
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					
+
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-3 control-lable" for="history">History</label>
+								<div class="col-md-7">
+									<form:textarea type="text" path="history" id="history"
+										class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="history" class="help-inline" />
+									</div>
+								</div>
+							</div>
+						</div>
+
 					</div>
 				</div>
 				<%-- 

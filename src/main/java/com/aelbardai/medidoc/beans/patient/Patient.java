@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,19 +23,19 @@ public class Patient implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
-	private String firstname;
-	private String lastname;
+	@Column(unique = true)
+	private String fullname;
 	private String email;
 	private String phoneNumber;
 	private String adress;
 	private String gender;
 	private Date birthday;
-
-	//private int age;
+	@Transient
+	private int age;
 	private String allergies;
-	//private float maxWeight;
-	//private float minWeight;
-	//private float goodWeight;
+	private float maxWeight;
+	private float minWeight;
+	private float goodWeight;
 	private String history;
 	@Transient
 	private List<Visit> visits;
@@ -51,20 +52,14 @@ public class Patient implements Serializable {
 		this.id = id;
 	}
 
-	public String getFirstname() {
-		return firstname;
+
+
+	public String getFullname() {
+		return fullname;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
 	}
 
 	public String getEmail() {
@@ -106,15 +101,18 @@ public class Patient implements Serializable {
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
-/*
+
 	public int getAge() {
+		if(birthday!=null){
+			
+		}
 		return age;
 	}
 
 	public void setAge(int age) {
 		this.age = age;
 	}
-*/
+
 	public String getAllergies() {
 		return allergies;
 	}
@@ -122,7 +120,7 @@ public class Patient implements Serializable {
 	public void setAllergies(String allergies) {
 		this.allergies = allergies;
 	}
-/*
+
 	public float getMaxWeight() {
 		return maxWeight;
 	}
@@ -145,7 +143,7 @@ public class Patient implements Serializable {
 
 	public void setGoodWeight(float goodWeight) {
 		this.goodWeight = goodWeight;
-	}*/
+	}
 
 	public String getHistory() {
 		return history;
