@@ -6,7 +6,7 @@
 <%@ include file="/jsp/layout/meta.jsp" %>
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
 <%@ include file="/jsp/layout/banner-header.jsp" %>
 
 <h1>List patient</h1>

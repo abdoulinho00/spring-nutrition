@@ -26,9 +26,9 @@
   template :
     src: templates/tomcat.service
     dest: /etc/systemd/system/tomcat.service
-    owner: "tomcat"
-    group: "tomcat"
-    mode: 0755
+#    owner: "tomcat"
+#    group: "tomcat"
+#    mode: 0755
 
 - include : restart_tomcat.yml
 

@@ -6,13 +6,23 @@
 <%@ include file="/jsp/layout/meta.jsp"%>
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<%@ include file="/jsp/layout/banner-header.jsp"%>
 
-
+<c:choose>
+   <c:when test="${patient.id > 0}">
+      <c:set var="action" value="edit" />
+   </c:when>
+   <c:otherwise>
+      <c:set var="action" value="add" />  
+   </c:otherwise>
+</c:choose>
 		<div class="form-container">
-			<form:form method="POST" modelAttribute="patient"
+			<form:form method="POST" modelAttribute="patient" action="${action}"
 				class="form-horizontal">
+				<c:if test="${ patient.id > 0 }">
+				<form:input type="hidden" path="id" value="${patient.id}" />
+				</c:if>
 				<div class="panel panel-primary">
 					<div class="panel-heading">Personal information</div>
 					<div class="panel-body">
@@ -21,7 +31,7 @@
 								<label class="col-md-3 control-lable" for="fullname">
 									Full Name</label>
 								<div class="col-md-7">
-									<form:input type="text" path="fullname" id="fullname"
+									<form:input type="text" path="fullname" id="fullname" value="${patient.fullname}"
 										class="form-control input-sm" />
 									<div class="has-error">
 										<form:errors path="fullname" class="help-inline" />
@@ -52,7 +62,7 @@
 								<label class="col-md-3 control-lable" for="dob">Date of
 									birth</label>
 								<div class="col-md-7">
-									<form:input type="text" path="birthday" id="dob"
+									<form:input type="text" path="birthday" id="dob" value="${patient.birthday}"
 										class="form-control input-sm" />
 									<div class="has-error">
 										<form:errors path="birthday" class="help-inline" />
@@ -65,7 +75,7 @@
 							<div class="form-group col-md-12">
 								<label class="col-md-3 control-lable" for="email">Email</label>
 								<div class="col-md-7">
-									<form:input type="text" path="email" id="email"
+									<form:input type="text" path="email" id="email" value="${patient.email}"
 										class="form-control input-sm" />
 									<div class="has-error">
 										<form:errors path="email" class="help-inline" />
@@ -79,7 +89,7 @@
 								<label class="col-md-3 control-lable" for="phone">Phone
 									Number</label>
 								<div class="col-md-7">
-									<form:input type="text" path="phoneNumber" id="phoneNumber"
+									<form:input type="text" path="phoneNumber" id="phoneNumber" value="${patient.phoneNumber}"
 										class="form-control input-sm" />
 									<div class="has-error">
 										<form:errors path="phoneNumber" class="help-inline" />
@@ -185,7 +195,7 @@
   --%>
 				<div class="row">
 					<div class="form-actions floatRight">
-						<input type="submit" value="Add patient"
+						<input type="submit" value="${action} patient"
 							class="btn btn-primary btn-md">
 					</div>
 				</div>

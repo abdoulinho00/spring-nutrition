@@ -8,7 +8,7 @@
 <body>
 	<div class="container">
 		<%@ include file="/jsp/layout/banner-header.jsp"%>
-		<h1>I am viewing the patient <c:out value="${patient.fullname}" /> </h1>
+		<h1>${patient.fullname}</h1>
 		<%@ include file="/jsp/layout/footer.jsp"%>
 	</div>
 </body>

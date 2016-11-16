@@ -25,7 +25,7 @@ public class PatientController {
     	System.out.println("from the add GET method");
     	Patient patient = new Patient();
     	model.addAttribute("patient", patient);
-        return "patient/add";
+        return "patient/add-edit";
     }
     
     @RequestMapping(value = "/add" ,method = RequestMethod.POST)
@@ -38,10 +38,10 @@ public class PatientController {
     @RequestMapping(value="/edit", params={"id"}, method= RequestMethod.GET)
     public String editPatientForm(ModelMap model,  @RequestParam(value="id") long id){
     	
-    	System.out.println("from the edit patient get meothd");
+    	System.out.println("from the edit patient get method");
     	Patient patient = patientService.getPatientById(id);
     	model.addAttribute("patient", patient);
-    	return "patient/edit";
+    	return "patient/add-edit";
     }
     
     @RequestMapping(value="/edit" ,  method= RequestMethod.POST)

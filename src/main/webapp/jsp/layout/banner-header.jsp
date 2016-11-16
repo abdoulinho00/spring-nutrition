@@ -1,9 +1,9 @@
 <div class="container-fluid">
-	<div class="row">
+	<!-- <div class="row">
 		<img
 			src="http://teachers.wrdsb.ca/nelsond/files/2013/01/Nutrition-Banner.jpg"
 			width="100%" class="img-rounded" alt="fruiti" />
-	</div>
+	</div> -->
 </div>
 <nav class="navbar navbar-inverse">
 	<div class="container-fluid">
