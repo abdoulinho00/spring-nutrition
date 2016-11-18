@@ -15,6 +15,7 @@ public class Article implements Serializable {
 	private String tags;
 	private String author;
 	private Date writtenAt;
+	private Date modifiedAt;
 	private ArticleType type;
 	public long getId() {
 		return id;
@@ -60,6 +61,12 @@ public class Article implements Serializable {
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public Date getModifiedAt() {
+		return modifiedAt;
+	}
+	public void setModifiedAt(Date modifiedAt) {
+		this.modifiedAt = modifiedAt;
 	}
 	
 	

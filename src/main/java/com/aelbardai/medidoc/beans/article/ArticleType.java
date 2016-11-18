@@ -1,5 +1,5 @@
 package com.aelbardai.medidoc.beans.article;
 
 public enum ArticleType {
-DIET, WORKOUT
+DIET, WORKOUT , BEAUTY , HEALTH
 }

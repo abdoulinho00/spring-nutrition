@@ -28,6 +28,14 @@ public class PatientController {
         return "patient/add-edit";
     }
     
+    @RequestMapping(value = "/add2" ,method = RequestMethod.GET)
+    public String addPatientform2(ModelMap model ) {
+    	System.out.println("from the add GET method");
+    	Patient patient = new Patient();
+    	model.addAttribute("patient", patient);
+        return "patient/add-edit2";
+    }
+    
     @RequestMapping(value = "/add" ,method = RequestMethod.POST)
     public String addPatient(  Patient patient, BindingResult result ) {
     	System.out.println("from the add POST method");

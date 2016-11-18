@@ -57,18 +57,17 @@
 
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#">A fen a doctor sninat</a></li>
-				<!-- 
+				 
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">Dropdown <span class="caret"></span></a>
+							aria-expanded="false">Language <span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">my profile</a></li>
-								<li><a href="#">my diet</a></li>
-								<li><a href="#">my workout</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="#">Separated link</a></li>
+								<li><a href="?language=en">English</a></li>
+								<li><a href="?language=fr">Francais</a></li>
+								<li><a href="?language=ar">عربية</a></li>
+								
 							</ul></li>
-							 -->
+							 
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->

@@ -6,11 +6,17 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="patient")
@@ -29,15 +35,20 @@ public class Patient implements Serializable {
 	private String phoneNumber;
 	private String adress;
 	private String gender;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
 	private Date birthday;
 	@Transient
 	private int age;
+	@Transient
+	private String profession;
 	private String allergies;
 	private float maxWeight;
 	private float minWeight;
 	private float goodWeight;
 	private String history;
-	@Transient
+	@OneToMany(mappedBy="patient",targetEntity=Visit.class,
+		       fetch=FetchType.LAZY)
 	private List<Visit> visits;
 
 	public Patient() {
@@ -163,6 +174,14 @@ public class Patient implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getProfession() {
+		return profession;
+	}
+
+	public void setProfession(String profession) {
+		this.profession = profession;
 	}
 
 	

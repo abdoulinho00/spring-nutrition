@@ -2,14 +2,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Add patient</title>
+<title>Welcome !!</title>
 <%@ include file="/jsp/layout/meta.jsp"%>
 </head>
 <body>
-	<div class="container-fluid">
+	<div class="container-fluid ">
 		<%@ include file="/jsp/layout/banner-header.jsp"%>
 
-		<h1>Welcome to this nutrition website.</h1>
+		<h1>
+			<spring:message code="welcome-message" text="Welcome" />  Current Locale : ${pageContext.response.locale.language} ${cssClass} 
+		</h1>
 		<div class="panel panel-primary">
 			<div class="panel-heading">User section</div>
 			<div class="panel-body">

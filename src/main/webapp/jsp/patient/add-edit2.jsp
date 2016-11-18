@@ -24,13 +24,16 @@
 					<form:input type="hidden" path="id" value="${patient.id}" />
 				</c:if>
 				<div class="panel panel-primary">
-					<div class="panel-heading">Personal information</div>
+					<div class="panel-heading">
+						<spring:message code="patient-add-personal-information" />
+					</div>
 					<div class="panel-body">
 						<div class="row">
 							<div class="form-group col-md-12">
-								<label class="col-md-3 control-lable" for="fullname">
-									Full Name</label>
-								<div class="col-md-7">
+								<label class="col-md-3 control-lable" for="fullname"> <spring:message
+										code="patient-fullname" />
+								</label>
+								<div class="col-md-3">
 									<form:input type="text" path="fullname" id="fullname"
 										value="${patient.fullname}" class="form-control input-sm" />
 									<div class="has-error">
@@ -40,12 +43,38 @@
 							</div>
 						</div>
 
+						<div class="row">
+							<div class="form-group col-md-6">
+								<label class="col-md-6 control-lable" for="dob"> <spring:message
+										code="patient-birthday" />
+								</label>
+								<div class="col-md-6">
+									<form:input type="text" path="birthday" id="dob"
+										value="${patient.birthday}" class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="birthday" class="help-inline" />
+									</div>
+								</div>
+							</div>
 
+							<div class="form-group col-md-6">
+								<label class="col-md-6 control-lable" for="age"><spring:message
+										code="patient-age" /></label>
+								<div class="col-md-6">
+									<form:input type="text" path="age" id="age"
+										value="${patient.age}" class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="age" class="help-inline" />
+									</div>
+								</div>
+							</div>
+						</div>
 
 						<div class="row">
 							<div class="form-group col-md-12">
-								<label class="col-md-3 control-lable" for="gender">Sex</label>
-								<div class="col-md-7" class="form-control input-sm">
+								<label class="col-md-3 control-lable" for="gender"><spring:message
+										code="patient-sex" /></label>
+								<div class="col-md-3" class="form-control input-sm">
 									<form:radiobutton path="gender" value="M" />
 									Male
 									<form:radiobutton path="gender" value="F" />
@@ -59,14 +88,13 @@
 
 						<div class="row">
 							<div class="form-group col-md-12">
-								<label class="col-md-3 control-lable" for="dob">Date of
-									birth</label>
-								<div class="col-md-7">
-								<fmt:formatDate pattern="dd/MM/yyyy"  value="${patient.birthday}" var="strDate" />
-									<form:input type="text" path="birthday" id="dob"
-										value="${strDate}"  class="form-control input-sm" />
+								<label class="col-md-3 control-lable" for="profession"><spring:message
+										code="patient-profession" /></label>
+								<div class="col-md-3" class="form-control input-sm">
+									<form:input type="text" path="profession" id="profession"
+										value="${patient.profession}" class="form-control input-sm" />
 									<div class="has-error">
-										<form:errors path="birthday" class="help-inline" />
+										<form:errors path="profession" class="help-inline" />
 									</div>
 								</div>
 							</div>
@@ -75,7 +103,7 @@
 						<div class="row">
 							<div class="form-group col-md-12">
 								<label class="col-md-3 control-lable" for="email">Email</label>
-								<div class="col-md-7">
+								<div class="col-md-3">
 									<form:input type="text" path="email" id="email"
 										value="${patient.email}" class="form-control input-sm" />
 									<div class="has-error">
@@ -89,7 +117,7 @@
 							<div class="form-group col-md-12">
 								<label class="col-md-3 control-lable" for="phone">Phone
 									Number</label>
-								<div class="col-md-7">
+								<div class="col-md-3">
 									<form:input type="text" path="phoneNumber" id="phoneNumber"
 										value="${patient.phoneNumber}" class="form-control input-sm" />
 									<div class="has-error">
@@ -102,7 +130,7 @@
 						<div class="row">
 							<div class="form-group col-md-12">
 								<label class="col-md-3 control-lable" for="adress">Adress</label>
-								<div class="col-md-7">
+								<div class="col-md-3">
 									<form:input type="text" path="adress" id="adress"
 										class="form-control input-sm" />
 									<div class="has-error">
@@ -115,7 +143,7 @@
 						<div class="row">
 							<div class="form-group col-md-12">
 								<label class="col-md-3 control-lable" for="allergies">Allergies</label>
-								<div class="col-md-7">
+								<div class="col-md-3">
 									<form:input type="text" path="allergies" id="allergies"
 										class="form-control input-sm" />
 									<div class="has-error">
