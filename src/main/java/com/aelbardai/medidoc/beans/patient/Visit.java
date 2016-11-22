@@ -3,6 +3,7 @@ package com.aelbardai.medidoc.beans.patient;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -25,11 +26,10 @@ public class Visit implements Serializable {
 	private long id;
 	private String reason;
 	private String description;
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="health_status_id")
+	@OneToOne( cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
 	private HealthStatus status;
 	private Date visitTime;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="patient_id")
 	private Patient patient;
 	
@@ -62,10 +62,12 @@ public class Visit implements Serializable {
 	}
 
 	public HealthStatus getStatus() {
+		if(status==null) setStatus(new HealthStatus());
 		return status;
 	}
 
 	public void setStatus(HealthStatus status) {
+		
 		this.status = status;
 	}
 

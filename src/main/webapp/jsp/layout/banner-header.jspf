@@ -1,0 +1,87 @@
+<div class="container-fluid">
+	<div class="row">
+		<!-- <img
+			src="http://teachers.wrdsb.ca/nelsond/files/2013/01/Nutrition-Banner.jpg"
+			width="100%" class="img-rounded" alt="fruiti" /> -->
+	</div>
+</div>
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse"
+			id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="${url}"><spring:message
+							code="menu-home" /><span class="sr-only">(current)</span></a></li>
+
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-haspopup="true"
+					aria-expanded="false"><spring:message code="menu-patient" /><span
+						class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="${url}patient/"><spring:message
+									code="menu-patient-list" /></a></li>
+						<li><a href="${url}patient/add"><spring:message
+									code="menu-patient-add" /></a></li>
+					</ul></li>
+
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-haspopup="true"
+					aria-expanded="false"><spring:message code="menu-diet" /><span
+						class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="#"><spring:message code="menu-diet-calories" /></a></li>
+						<li><a href="#"><spring:message code="menu-diet-menu" /></a></li>
+						<li><a href="#"><spring:message code="menu-diet-workout" /></a></li>
+					</ul></li>
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-haspopup="true"
+					aria-expanded="false"><spring:message code="menu-esthetique" /><span
+						class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="#"><spring:message
+									code="menu-esthetique-esthetique" /></a></li>
+						<li><a href="#"><spring:message
+									code="menu-esthetique-morpho" /></a></li>
+					</ul></li>
+				<li class="dropdown"><a href="${url}articles/" class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-haspopup="true"
+					aria-expanded="false"><spring:message code="menu-articles" /><span
+						class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="${url}articles/health"><spring:message
+									code="menu-articles-health" /></a></li>
+						<li><a href="${url}articles/workout"><spring:message
+									code="menu-articles-workout" /></a></li>
+					</ul></li>
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-haspopup="true"
+					aria-expanded="false"><spring:message code="menu-about" /><span
+						class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="#"><spring:message code="menu-about-contact" /></a></li>
+						<li><a href="#"><spring:message code="menu-about-about" /></a></li>
+						<li><a href="#"><spring:message code="menu-about-sitemap" /></a></li>
+					</ul></li>
+				<li><a href="#"><spring:message code="menu-administration" /></a></li>
+			</ul>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#">A fen a doctor sninat</a></li>
+
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-haspopup="true"
+					aria-expanded="false"><spring:message code="menu-language" /><span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="?language=en"><spring:message code="menu-language-english" /></a></li>
+						<li><a href="?language=fr"><spring:message code="menu-language-french" /></a></li>
+						<li><a href="?language=ar"><spring:message code="menu-language-arabic" /></a></li>
+
+					</ul></li>
+
+			</ul>
+		</div>
+		<!-- /.navbar-collapse -->
+	</div>
+	<!-- /.container-fluid -->
+</nav>

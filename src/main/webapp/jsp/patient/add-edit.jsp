@@ -1,13 +1,13 @@
-<%@ include file="/jsp/layout/init.jsp"%>
+<%@ include file="/jsp/layout/init.jspf"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Add patient</title>
-<%@ include file="/jsp/layout/meta.jsp"%>
+<%@ include file="/jsp/layout/meta.jspf"%>
 </head>
 <body>
 	<div class="container-fluid">
-		<%@ include file="/jsp/layout/banner-header.jsp"%>
+		<%@ include file="/jsp/layout/banner-header.jspf"%>
 
 		<c:choose>
 			<c:when test="${patient.id > 0}">
@@ -22,15 +22,20 @@
 				class="form-horizontal">
 				<c:if test="${ patient.id > 0 }">
 					<form:input type="hidden" path="id" value="${patient.id}" />
+					<form:input type="hidden" path="visits[0].id" value="${patient.visits[0].id}" />
+					<form:input type="hidden" path="visits[0].status.id" value="${patient.visits[0].status.id}" />
 				</c:if>
 				<div class="panel panel-primary">
-					<div class="panel-heading">Personal information</div>
+					<div class="panel-heading">
+						<spring:message code="patient-add-personal-information" />
+					</div>
 					<div class="panel-body">
+						<!-- Patient full name -->
 						<div class="row">
 							<div class="form-group col-md-12">
-								<label class="col-md-3 control-lable" for="fullname">
-									Full Name</label>
-								<div class="col-md-7">
+								<label class="col-md-2 control-lable" for="fullname"> <spring:message
+										code="patient-fullname" /></label>
+								<div class="col-md-4">
 									<form:input type="text" path="fullname" id="fullname"
 										value="${patient.fullname}" class="form-control input-sm" />
 									<div class="has-error">
@@ -40,42 +45,88 @@
 							</div>
 						</div>
 
-
-
+						<!-- Patient birthday and age  -->
 						<div class="row">
 							<div class="form-group col-md-12">
-								<label class="col-md-3 control-lable" for="gender">Sex</label>
-								<div class="col-md-7" class="form-control input-sm">
+								<label class="col-md-2 control-lable" for="birthday"> <spring:message
+										code="patient-birthday" /></label>
+								<div class="col-md-2">
+									<fmt:formatDate pattern="dd/MM/yyyy"
+										value="${patient.birthday}" var="strDate" />
+									<form:input type="text" path="birthday" id="birthday"
+										value="${strDate}" class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="birthday" class="help-inline" />
+									</div>
+								</div>
+
+								<label class="col-md-1 control-lable" for="age"> <spring:message
+										code="patient-age" /></label>
+								<div class="col-md-2">
+									<form:input type="text" path="age" id="age"
+										value="${patient.age}" class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="age" class="help-inline" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<!-- Patient gender  -->
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="gender"><spring:message
+										code="patient-sex" /></label>
+								<div class="col-md-2" class="form-control input-sm">
 									<form:radiobutton path="gender" value="M" />
-									Male
+									<spring:message code="patient-male" />
 									<form:radiobutton path="gender" value="F" />
-									Female
+									<spring:message code="patient-female" />
 									<div class="has-error">
 										<form:errors path="gender" class="help-inline" />
 									</div>
 								</div>
 							</div>
 						</div>
-
+						<!--  patient profession -->
 						<div class="row">
 							<div class="form-group col-md-12">
-								<label class="col-md-3 control-lable" for="dob">Date of
-									birth</label>
-								<div class="col-md-7">
-								<fmt:formatDate pattern="dd/MM/yyyy"  value="${patient.birthday}" var="strDate" />
-									<form:input type="text" path="birthday" id="dob"
-										value="${strDate}"  class="form-control input-sm" />
+								<label class="col-md-2 control-lable" for="profession"><spring:message
+										code="patient-profession" /></label>
+								<div class="col-md-2">
+
+									<form:input type="text" path="profession" id="profession"
+										value="${patient.profession}" class="form-control input-sm" />
 									<div class="has-error">
-										<form:errors path="birthday" class="help-inline" />
+										<form:errors path="profession" class="help-inline" />
+									</div>
+								</div>
+							</div>
+						</div>
+						
+							<!--  patient profession -->
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="identification"><spring:message
+										code="patient-identification" /></label>
+								<div class="col-md-2">
+
+									<form:input type="text" path="identification" id="identification"
+										value="${patient.identification}" class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="profession" class="help-inline" />
 									</div>
 								</div>
 							</div>
 						</div>
 
+						<!--  patient email and phone number -->
 						<div class="row">
 							<div class="form-group col-md-12">
-								<label class="col-md-3 control-lable" for="email">Email</label>
-								<div class="col-md-7">
+								<label class="col-md-2 control-lable" for="email"><spring:message
+										code="patient-email" /></label>
+								<div class="col-md-2">
 									<form:input type="text" path="email" id="email"
 										value="${patient.email}" class="form-control input-sm" />
 									<div class="has-error">
@@ -84,12 +135,13 @@
 								</div>
 							</div>
 						</div>
-
+						
+						
 						<div class="row">
 							<div class="form-group col-md-12">
-								<label class="col-md-3 control-lable" for="phone">Phone
-									Number</label>
-								<div class="col-md-7">
+								<label class="col-md-2 control-lable" for="phone"><spring:message
+										code="patient-phone" /></label>
+								<div class="col-md-2">
 									<form:input type="text" path="phoneNumber" id="phoneNumber"
 										value="${patient.phoneNumber}" class="form-control input-sm" />
 									<div class="has-error">
@@ -99,7 +151,7 @@
 							</div>
 						</div>
 
-						<div class="row">
+						<%-- <div class="row">
 							<div class="form-group col-md-12">
 								<label class="col-md-3 control-lable" for="adress">Adress</label>
 								<div class="col-md-7">
@@ -110,13 +162,51 @@
 									</div>
 								</div>
 							</div>
+						</div> --%>
+						
+						<!--  patient history -->
+						<div class="row">
+							<div class="form-group col-md-2 text-center">
+								<h3>
+									<spring:message code="patient-history" />
+								</h3>
+							</div>
 						</div>
 
 						<div class="row">
 							<div class="form-group col-md-12">
-								<label class="col-md-3 control-lable" for="allergies">Allergies</label>
+								<label class="col-md-2 control-lable" for="personalhistory"><spring:message
+										code="patient-personal-history" /></label>
 								<div class="col-md-7">
-									<form:input type="text" path="allergies" id="allergies"
+									<form:input type="text" path="personalHistory" value="${patient.personalHistory}"
+										id="personalhistory" class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="personalHistory" class="help-inline" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="familyhistory"><spring:message
+										code="patient-family-history" /></label>
+								<div class="col-md-7">
+									<form:input type="text" path="familyHistory" id="familyhistory" value="${patient.familyHistory}"
+										class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="familyHistory" class="help-inline" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="allergies"><spring:message
+										code="patient-allergy" /></label>
+								<div class="col-md-7">
+									<form:input type="text" path="allergies" id="allergies" value="${patient.allergies}"
 										class="form-control input-sm" />
 									<div class="has-error">
 										<form:errors path="allergies" class="help-inline" />
@@ -127,16 +217,198 @@
 
 						<div class="row">
 							<div class="form-group col-md-12">
-								<label class="col-md-3 control-lable" for="history">History</label>
+								<label class="col-md-2 control-lable" for="treatment"><spring:message
+										code="patient-treatment" /></label>
 								<div class="col-md-7">
-									<form:textarea type="text" path="history" id="history"
+									<form:textarea type="text" path="treatment" id="treatment" value="${patient.treatment}"
 										class="form-control input-sm" />
 									<div class="has-error">
-										<form:errors path="history" class="help-inline" />
+										<form:errors path="treatment" class="help-inline" />
 									</div>
 								</div>
 							</div>
 						</div>
+
+					</div>
+				</div>
+
+
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<spring:message code="patient-diet-history" />
+					</div>
+					<div class="panel-body">
+
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="height"><spring:message
+										code="patient-height" /></label>
+								<div class="col-md-2">
+									<form:input type="text" path="visits[0].status.height"
+										id="height" class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="visits[0].status.height"
+											class="help-inline" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="maxWeight"><spring:message
+										code="patient-max-weight" /></label>
+								<div class="col-md-2">
+									<form:input type="text" path="maxWeight" id="maxWeight"
+										class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="maxWeight" class="help-inline" />
+									</div>
+								</div>
+
+
+
+								<label class="col-md-2 control-lable" for="minWeight"><spring:message
+										code="patient-min-weight" /></label>
+								<div class="col-md-2">
+									<form:input type="text" path="minWeight" id="minWeight"
+										class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="minWeight" class="help-inline" />
+									</div>
+								</div>
+
+
+
+								<label class="col-md-2 control-lable" for="goodWeight"><spring:message
+										code="patient-good-weight" /></label>
+								<div class="col-md-2">
+									<form:input type="text" path="goodWeight" id="goodWeight"
+										class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="goodWeight" class="help-inline" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="maxIMC"><spring:message
+										code="patient-max-imc" /></label>
+								<div class="col-md-2">
+									<form:input type="text" path="maxIMC" id="maxIMC"
+										class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="maxIMC" class="help-inline" />
+									</div>
+								</div>
+
+
+
+								<label class="col-md-2 control-lable" for="minIMC"><spring:message
+										code="patient-min-imc" /></label>
+								<div class="col-md-2">
+									<form:input type="text" path="minIMC" id="minIMC"
+										class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="minIMC" class="help-inline" />
+									</div>
+								</div>
+
+
+
+								<label class="col-md-2 control-lable" for="goodIMC"><spring:message
+										code="patient-good-imc" /></label>
+								<div class="col-md-2">
+									<form:input type="text" path="goodIMC" id="goodIMC"
+										class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="goodIMC" class="help-inline" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="taste"><spring:message
+										code="patient-taste" /></label>
+								<div class="col-md-7">
+									<form:textarea type="text" path="taste" id="taste"
+										class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="taste" class="help-inline" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="water"><spring:message
+										code="patient-water" /></label>
+								<div class="col-md-2">
+									<form:input type="text" path="water" id="water"
+										class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="water" class="help-inline" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="pa"><spring:message
+										code="patient-pa" /></label>
+								<div class="col-md-7">
+									<form:textarea type="text" path="physicalActivity" id="pa"
+										class="form-control input-sm" />
+									<div class="has-error">
+										<form:errors path="physicalActivity" class="help-inline" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<spring:message code="patient-observation" />
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="form-group col-md-12">
+
+
+								<form:textarea type="text" path="observations" id="observations"
+									class="form-control input-sm" />
+								<div class="has-error">
+									<form:errors path="observations" class="help-inline" />
+								</div>
+
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+
+
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<spring:message code="patient-appointment" />
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="form-group col-md-12"></div>
+						</div>
+
 
 					</div>
 				</div>
@@ -197,13 +469,13 @@
 				<div class="row">
 					<div class="form-actions floatRight">
 						<input type="submit" value="${action} patient"
-							class="btn btn-primary btn-md">
+							class="btn btn-primary btn-md" />
 					</div>
 				</div>
 			</form:form>
 		</div>
 
-		<%@ include file="/jsp/layout/footer.jsp"%>
+		<%@ include file="/jsp/layout/footer.jspf"%>
 	</div>
 </body>
 </html>

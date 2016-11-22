@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 import com.aelbardai.medidoc.beans.patient.Patient;
+import com.aelbardai.medidoc.beans.patient.Visit;
 
 @Repository
 public class PatientDaoImp implements PatientDao {
@@ -35,6 +36,10 @@ public class PatientDaoImp implements PatientDao {
 
 	@Override
 	public Patient updatePatient(Patient patient) {
+		for(Visit visit : patient.getVisits()){
+			visit.setPatient(patient);
+			visit.getStatus().setVisit(visit);
+		}
 		entityManager.merge(patient);
 		return patient;
 	}

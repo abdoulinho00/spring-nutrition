@@ -1,9 +1,11 @@
 package com.aelbardai.medidoc.beans.patient;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -40,19 +42,31 @@ public class Patient implements Serializable {
 	private Date birthday;
 	@Transient
 	private int age;
-	@Transient
 	private String profession;
+	private String identification;
 	private String allergies;
 	private float maxWeight;
 	private float minWeight;
 	private float goodWeight;
-	private String history;
-	@OneToMany(mappedBy="patient",targetEntity=Visit.class,
-		       fetch=FetchType.LAZY)
+	private float maxIMC;
+	private float minIMC;
+	private float goodIMC;
+	@Column(name="personal_history")
+	private String personalHistory;
+	@Column(name="family_history")
+	private String familyHistory;
+	private String taste;
+	private String water;
+	private String treatment;
+	private String observations;
+	@Column(name="physical_activity")
+	private String physicalActivity;
+	@OneToMany(mappedBy="patient",
+		       fetch=FetchType.EAGER ,cascade = {CascadeType.ALL})
 	private List<Visit> visits;
 
 	public Patient() {
-
+		
 	}
 
 	public long getId() {
@@ -156,15 +170,74 @@ public class Patient implements Serializable {
 		this.goodWeight = goodWeight;
 	}
 
-	public String getHistory() {
-		return history;
+
+
+	public float getMaxIMC() {
+		return maxIMC;
 	}
 
-	public void setHistory(String history) {
-		this.history = history;
+	public void setMaxIMC(float maxIMC) {
+		this.maxIMC = maxIMC;
+	}
+
+	public float getMinIMC() {
+		return minIMC;
+	}
+
+	public void setMinIMC(float minIMC) {
+		this.minIMC = minIMC;
+	}
+
+	public float getGoodIMC() {
+		return goodIMC;
+	}
+
+	public void setGoodIMC(float goodIMC) {
+		this.goodIMC = goodIMC;
+	}
+
+	public String getPersonalHistory() {
+		return personalHistory;
+	}
+
+	public void setPersonalHistory(String personalHistory) {
+		this.personalHistory = personalHistory;
+	}
+
+	public String getFamilyHistory() {
+		return familyHistory;
+	}
+
+	public void setFamilyHistory(String familyHistory) {
+		this.familyHistory = familyHistory;
+	}
+
+	public String getTaste() {
+		return taste;
+	}
+
+	public void setTaste(String taste) {
+		this.taste = taste;
+	}
+
+	public String getWater() {
+		return water;
+	}
+
+	public void setWater(String water) {
+		this.water = water;
+	}
+
+	public String getPhysicalActivity() {
+		return physicalActivity;
+	}
+
+	public void setPhysicalActivity(String physicalActivity) {
+		this.physicalActivity = physicalActivity;
 	}
 
 	public List<Visit> getVisits() {
+		if(visits== null) setVisits(new ArrayList<Visit>());
 		return visits;
 	}
 
@@ -182,6 +255,30 @@ public class Patient implements Serializable {
 
 	public void setProfession(String profession) {
 		this.profession = profession;
+	}
+
+	public String getTreatment() {
+		return treatment;
+	}
+
+	public void setTreatment(String treatment) {
+		this.treatment = treatment;
+	}
+
+	public String getObservations() {
+		return observations;
+	}
+
+	public void setObservations(String observations) {
+		this.observations = observations;
+	}
+
+	public String getIdentification() {
+		return identification;
+	}
+
+	public void setIdentification(String identification) {
+		this.identification = identification;
 	}
 
 	

@@ -10,6 +10,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%-- <fmt:setLocale value="ar_MA" scope="session"/> --%>
 <c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
-<fmt:setLocale value="${language}" />
+<fmt:setLocale value="${language}" /> 
+
 
 <c:url value="/" var="url" />

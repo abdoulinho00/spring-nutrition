@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,8 +26,11 @@ public class HealthStatus implements Serializable {
 	private short bloodPressure;
 	private short sugarRate;
 	private short heartBeat;
+	@OneToOne
+	@JoinColumn(name="visit_id")
+	private Visit visit;
 	
-	private HealthStatus(){
+	public HealthStatus(){
 		
 	}
 
@@ -79,6 +84,17 @@ public class HealthStatus implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public Visit getVisit() {
+		if(visit== null){
+			setVisit(new Visit());
+		}
+		return visit;
+	}
+
+	public void setVisit(Visit visit) {
+		this.visit = visit;
 	}
 	
 	

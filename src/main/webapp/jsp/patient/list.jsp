@@ -1,25 +1,25 @@
-<%@ include file="/jsp/layout/init.jsp"%>
+<%@ include file="/jsp/layout/init.jspf"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>list patient</title>
-<%@ include file="/jsp/layout/meta.jsp"%>
+<%@ include file="/jsp/layout/meta.jspf"%>
 </head>
 <body>
 	<div class="container-fluid">
-		<%@ include file="/jsp/layout/banner-header.jsp"%>
+		<%@ include file="/jsp/layout/banner-header.jspf"%>
 
-		<h1>List patient</h1>
+		<h1><spring:message code="patient-list" /></h1>
 		<c:if test="${fn:length(patients)>0}">
 			<p>you have ${fn:length(patients)} patients registered</p>
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-						<th>Full name</th>
-						<th>birthday</th>
-						<th>gender</th>
-						<th>goodWeight</th>
-						<th>actions</th>
+						<th><spring:message code="patient-fullname" /></th>
+						<th><spring:message code="patient-birthday" /></th>
+						<th><spring:message code="patient-sex" /></th>
+						<th><spring:message code="patient-good-weight" /></th>
+						<th><spring:message code="patient-actions" /></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -52,7 +52,8 @@
 			to add a patient click <a href="${url}patient/add">here</a>
 		</p>
 
-		<%@ include file="/jsp/layout/footer.jsp"%>
+		
 	</div>
+	<%@ include file="/jsp/layout/footer.jspf"%>
 </body>
 </html>
