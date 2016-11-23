@@ -46,6 +46,7 @@ public class PatientController {
     @RequestMapping(value = "/add" ,method = RequestMethod.POST)
     public String addPatient(  Patient patient, BindingResult result ) {
     	System.out.println("from the add POST method");
+    	System.out.println("patient name : " + patient.getFullname());
     	patient.getVisits().get(0).setPatient(patient);
     	patientService.addPatient(patient);
     	return "redirect:/patient/list";

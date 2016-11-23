@@ -23,6 +23,9 @@ import org.springframework.web.servlet.view.JstlView;
 		"com.aelbardai.medidoc.service" , 
 		"com.aelbardai.medidoc.dao"})
 public class HelloWorldConfiguration extends WebMvcConfigurerAdapter{
+	
+	  
+
 	/*@Bean
     public ViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -35,6 +38,7 @@ public class HelloWorldConfiguration extends WebMvcConfigurerAdapter{
 	
     @Bean
     public MessageSource messageSource() {
+    	System.out.println("from the message ressources");
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasename("content.Language");
         return messageSource;
@@ -98,4 +102,6 @@ public class HelloWorldConfiguration extends WebMvcConfigurerAdapter{
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }
+  
+    
 }

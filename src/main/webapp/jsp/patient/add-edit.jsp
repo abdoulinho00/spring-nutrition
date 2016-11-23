@@ -1,7 +1,9 @@
 <%@ include file="/jsp/layout/init.jspf"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel='shortcut icon' href='${pageContext.request.contextPath}/favicon.ico' type='image/x-icon' />
 <title>Add patient</title>
 <%@ include file="/jsp/layout/meta.jspf"%>
 </head>
@@ -18,7 +20,7 @@
 			</c:otherwise>
 		</c:choose>
 		<div class="form-container">
-			<form:form method="POST" modelAttribute="patient" action="${action}"
+			<form:form method="POST" modelAttribute="patient" action="${action}" id="formSelector"
 				class="form-horizontal">
 				<c:if test="${ patient.id > 0 }">
 					<form:input type="hidden" path="id" value="${patient.id}" />
@@ -479,3 +481,9 @@
 	</div>
 </body>
 </html>
+<script>
+jQuery( document ).ready(function() {
+	   jQuery("#formSelector").attr("accept-charset", "UTF-8");
+	});
+
+</script>

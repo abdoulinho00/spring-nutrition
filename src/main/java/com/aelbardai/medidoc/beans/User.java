@@ -9,9 +9,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+/**
+ * 
+ * @author aelbardai
+ * 
+ *
+ */
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User implements Serializable {
 
 	/**
@@ -19,20 +24,21 @@ public class User implements Serializable {
 	 */
 	private static final long serialVersionUID = 4771218012478359049L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String username;
 	private String password;
 	private String firstname;
 	private String lastname;
 	private String email;
-	@Column(name="phone_number")
+	@Column(name = "phone_number")
 	private String phoneNumber;
 	private String adress;
 	private Date createdAt;
 
+	
 	public User() {
-
+		super();
 	}
 
 	public long getId() {

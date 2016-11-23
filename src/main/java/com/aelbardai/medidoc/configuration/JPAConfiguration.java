@@ -65,6 +65,10 @@ public class JPAConfiguration {
         properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("hibernate.hbm2ddl.auto"));
         properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
         properties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
+        properties.put("connection.CharSet", environment.getRequiredProperty("hibernate.connection.CharSet"));
+        properties.put("connection.useUnicode", environment.getRequiredProperty("hibernate.connection.useUnicode"));
+        properties.put("connection.characterEncoding", environment.getRequiredProperty("hibernate.connection.characterEncoding"));
+        properties.put("hibernate.use_sql_comments", environment.getRequiredProperty("hibernate.use_sql_comments"));
         return properties;
     }
  

@@ -1,7 +1,9 @@
 <%@ include file="/jsp/layout/init.jspf"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel='shortcut icon' href='${pageContext.request.contextPath}/favicon.ico' type='image/x-icon' />
 <title>Welcome !!</title>
 <%@ include file="/jsp/layout/meta.jspf"%>
 </head>
