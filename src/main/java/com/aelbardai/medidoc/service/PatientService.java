@@ -8,7 +8,11 @@ public interface PatientService {
 	public Patient getPatientById(long id);
 
 	public List<Patient> getAllPatient();
-
+	/**
+	 * Adds a new patient into the db
+	 * @param patient
+	 * @return
+	 */
 	public Patient addPatient(Patient patient);
 
 	public Patient updatePatient(Patient patient);

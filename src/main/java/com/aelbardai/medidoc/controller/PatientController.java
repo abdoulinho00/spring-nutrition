@@ -3,6 +3,7 @@ package com.aelbardai.medidoc.controller;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.aelbardai.medidoc.beans.patient.Patient;
 import com.aelbardai.medidoc.beans.patient.Visit;
 import com.aelbardai.medidoc.service.PatientService;
+import com.googlecode.charts4j.Data;
+import com.googlecode.charts4j.GCharts;
+import com.googlecode.charts4j.LineChart;
+import com.googlecode.charts4j.Plot;
+import com.googlecode.charts4j.Plots;
 
 @Controller
 @RequestMapping("/patient")
@@ -22,11 +28,12 @@ public class PatientController {
 	
 	@Autowired
 	private PatientService patientService;
-
+	private static final Logger logger = Logger.getLogger(PatientController.class);
 	
     @RequestMapping(value = "/add" ,method = RequestMethod.GET)
     public String addPatientform(ModelMap model ) {
-    	System.out.println("from the add GET method");
+    	logger.warn("from the add GET method");
+    	logger.info("just some information");
     	Patient patient = new Patient();
     	Visit visit = new Visit();
     	patient.getVisits().add(visit);
@@ -87,6 +94,10 @@ public class PatientController {
     public String viewPatient(ModelMap model ,  @RequestParam(value="id") long id){
     	Patient patient = patientService.getPatientById(id);
     	model.addAttribute("patient", patient);
+    	final Plot plot = Plots.newPlot(Data.newData(0, 66.6, 33.3, 100));
+        final LineChart chart = GCharts.newLineChart(plot);
+        chart.setTitle("My Really Great Chart");
+        model.addAttribute("chart",chart.toURLString());
     	return "patient/view";
     }
     

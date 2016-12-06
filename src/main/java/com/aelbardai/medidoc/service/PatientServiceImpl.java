@@ -17,6 +17,9 @@ public class PatientServiceImpl implements PatientService{
 	@Autowired
 	private PatientDao patientDao;
 	
+	/**
+	 *  let you add a patient into the db
+	 */
 	@Override
 	public Patient addPatient(Patient patient) {
 		return patientDao.addPatient(patient);

@@ -11,6 +11,10 @@
 	<div class="container">
 		<%@ include file="/jsp/layout/banner-header.jspf"%>
 		<h1>${patient.fullname}</h1>
+		
+		<div>
+		<img src="${chart}" alt="chart"/>
+		</div>
 		<%@ include file="/jsp/layout/footer.jspf"%>
 	</div>
 </body>
