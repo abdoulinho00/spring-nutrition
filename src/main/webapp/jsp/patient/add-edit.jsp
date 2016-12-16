@@ -480,10 +480,18 @@
 		<%@ include file="/jsp/layout/footer.jspf"%>
 	</div>
 </body>
-</html>
 <script>
 jQuery( document ).ready(function() {
 	   jQuery("#formSelector").attr("accept-charset", "UTF-8");
 	});
 
 </script>
+
+<script type="text/javascript">
+            $(function () {
+                $('#birthday').datetimepicker({
+                	
+                });
+            });
+        </script>
+</html>
