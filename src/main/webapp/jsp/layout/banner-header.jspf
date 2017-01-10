@@ -30,7 +30,7 @@
 					aria-expanded="false"><spring:message code="menu-diet" /><span
 						class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="#"><spring:message code="menu-diet-calories" /></a></li>
+						<li><a href="${url}diet/calorycount"><spring:message code="menu-diet-calories" /></a></li>
 						<li><a href="#"><spring:message code="menu-diet-menu" /></a></li>
 						<li><a href="#"><spring:message code="menu-diet-workout" /></a></li>
 					</ul></li>

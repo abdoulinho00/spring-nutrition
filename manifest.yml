@@ -1,0 +1,7 @@
+---
+applications:
+- name: medidoc_manifest
+  memory: 512M
+  random-route: true
+  path: target/medidoc.war
+
