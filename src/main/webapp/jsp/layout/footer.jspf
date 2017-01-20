@@ -7,7 +7,7 @@
 <div class="container">
     <hr>
         <div class="text-center center-block small">
-                <a href="https://www.facebook.com/bootsnipp"><em id="social-fb" class="fa fa-facebook-square fa-3x social"></em></a>
+                <a href="https://www.facebook.com/medidoctest"><em id="social-fb" class="fa fa-facebook-square fa-3x social"></em></a>
 	            <a href="https://twitter.com/bootsnipp"><em id="social-tw" class="fa fa-twitter-square fa-3x social"></em></a>
 	            <a href="https://plus.google.com/+Bootsnipp-page"><em id="social-gp" class="fa fa-google-plus-square fa-3x social"></em></a>
 	            <a href="mailto:elbardai.a@gmail.com"><em id="social-em" class="fa fa-envelope-square fa-3x social"></em></a>

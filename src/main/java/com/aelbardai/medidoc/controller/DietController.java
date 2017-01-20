@@ -15,4 +15,11 @@ public class DietController {
 		
         return "diet/calory_count";
     }
+	
+	
+	@RequestMapping(value = "/menumaker" ,method = RequestMethod.GET)
+	public String menuMaker(ModelMap model ) {
+		
+		return "diet/menu_maker";
+	}
 }

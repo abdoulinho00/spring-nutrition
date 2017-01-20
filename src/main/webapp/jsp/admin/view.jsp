@@ -14,26 +14,13 @@
 		<%@ include file="/jsp/layout/banner-header.jspf"%>
 
 		<div class="container-fluid">
-			<h1>Make your own menu</h1>
-			<form>
-			<div>
-				<label>We9t</label>
-				<select>
-					<option><spring:message text="Ftour" code="test" /></option>
-					<option>Ghda</option>
-					<option>3cha</option>
-				</select>
+			<h1>Control Panel</h1>
+			
+			<div class="panel panel-default">
+				<ul>
+					<li><a href="${url}admin/menu">Manage menu items</a></li>
+				</ul>
 			</div>
-			<div>
-				<label>Repas</label>
-				<select>
-					<option>salade garnie</option>
-					<option>tajine btata b l7em</option>
-					<option>Spaghetti</option>
-					<option>Grattin</option>
-				</select>
-			</div>
-			</form>
 		</div>
 		
 		<%@ include file="/jsp/layout/footer.jspf"%>

@@ -31,7 +31,7 @@
 						class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="${url}diet/calorycount"><spring:message code="menu-diet-calories" /></a></li>
-						<li><a href="#"><spring:message code="menu-diet-menu" /></a></li>
+						<li><a href="${url}diet/menumaker"><spring:message code="menu-diet-menu" /></a></li>
 						<li><a href="#"><spring:message code="menu-diet-workout" /></a></li>
 					</ul></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -63,7 +63,7 @@
 						<li><a href="#"><spring:message code="menu-about-about" /></a></li>
 						<li><a href="#"><spring:message code="menu-about-sitemap" /></a></li>
 					</ul></li>
-				<li><a href="#"><spring:message code="menu-administration" /></a></li>
+				<li><a href="${url}admin"><spring:message code="menu-administration" /></a></li>
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
