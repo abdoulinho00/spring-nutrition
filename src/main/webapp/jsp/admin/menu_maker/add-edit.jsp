@@ -14,43 +14,74 @@
 		<%@ include file="/jsp/layout/banner-header.jspf"%>
 
 		<div class="container-fluid">
-			<h1>Add menu item</h1>
-			
 			<div class="panel panel-default">
-				<form method="post">
-					<div>
-					<label>Name : </label><input type="text" name="name"/>
-					</div>
-					<div>
-					<label>Description : </label><input type="text" name="description" placeholder="make it small"/>
-					</div>
-					<div>
-					<label>Content : </label><textarea  id="content" name="content"></textarea>
-					</div>
-					
-					<div>
-						<button type="submit">Add</button>
-					</div>
-				</form>
+				<div class="panel-heading">
+					<strong>Add menu item</strong>
+				</div>
+				<div class="panel-body">
+					<form method="post">
+						<div class="form-group">
+							<label>Name : </label> 
+							<input type="text" name="name" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label>Description : </label> 
+							<input type="text" name="description" placeholder="make it small" class="form-control"/>
+						</div>
+						
+						<fieldset >
+							<legend>
+								<a class="" role="button" data-toggle="collapse" href="#metrics" aria-expanded="true" aria-controls="metrics">Metrics</a>
+							</legend>
+							<div id="metrics" class="row">
+								<div class="form-group col-md-3">
+									<label>Calories : </label> 
+									<input type="text" name="calories" placeholder="0.0" class="form-control"/>
+								</div>
+								<div class="form-group col-md-3">
+									<label>Proteins : </label> 
+									<input type="text" name="proteins" placeholder="0.0" class="form-control"/>
+								</div>
+								<div class="form-group col-md-3">
+									<label>Carbs : </label> 
+									<input type="text" name="carbs" placeholder="0.0" class="form-control"/>
+								</div>
+								<div class="form-group col-md-3">
+									<label>Fat : </label> 
+									<input type="text" name="fat" placeholder="0.0" class="form-control"/>
+								</div>
+						</div>
+						</fieldset>
+						
+						<div>
+							<label>Content : </label>
+							<textarea id="content" name="content"></textarea>
+						</div>
+		
+						<div class="row">
+							<hr>
+							<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"></span>Add</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
-		
 		<%@ include file="/jsp/layout/footer.jspf"%>
-	</div> 
+	</div>
 </body>
 
 <script>
-tinymce.init({
-	  selector: '#content',
-	  height: 400,
-	  menubar: false,
-	  plugins: [
-	    'advlist autolink lists link image charmap print preview anchor',
-	    'searchreplace visualblocks code fullscreen',
-	    'insertdatetime media table contextmenu paste code'
-	  ],
-	  toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-	  content_css: '//www.tinymce.com/css/codepen.min.css'
-	});
+	tinymce
+			.init({
+				selector : '#content',
+				height : 400,
+				menubar : false,
+				plugins : [
+						'advlist autolink lists link image charmap print preview anchor',
+						'searchreplace visualblocks code fullscreen',
+						'insertdatetime media table contextmenu paste code' ],
+				toolbar : 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+				content_css : '//www.tinymce.com/css/codepen.min.css'
+			});
 </script>
 </html>

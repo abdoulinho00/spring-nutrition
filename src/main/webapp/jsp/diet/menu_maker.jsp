@@ -13,34 +13,61 @@
 	<div class="container-fluid">
 		<%@ include file="/jsp/layout/banner-header.jspf"%>
 
-		<div class="container-fluid">
-			<h1>Make your own menu</h1>
-			<form>
-			<div>
-				<label>We9t</label>
-				<select>
-					<option><spring:message text="Ftour" code="test" /></option>
-					<option>Ghda</option>
-					<option>3cha</option>
-				</select>
+			<div class="well text-center">
+				<h1>Make your own menu</h1>
 			</div>
-			<div>
-				<label>Repas</label>
-				<select>
-					<option>salade garnie</option>
-					<option>tajine btata b l7em</option>
-					<option>Spaghetti</option>
-					<option>Grattin</option>
-				</select>
+			<div class="row">
+				<div class="col-md-3">
+					<form>
+					<div class="form-group">
+						<label>Type</label>
+						<select id="menuType" name="menuType" class="form-control">
+							<c:forEach items="${ menuTypes}" var="menuType">
+								<option value="${menuType}"><spring:message text="${menuType }" code="${menuType }" /></option>
+							</c:forEach>
+						</select>
+					</div>
+					<div class="form-group">
+						<label>Menu item</label>
+						<c:if test="${fn:length(menuItems)>0}">
+							<select id="menuItem" name="menuItem" class="form-control">
+								<c:forEach items="${ menuItems}" var="menuItem" varStatus="loop">
+									<option value="${menuItem.id}">${menuItem.name}</option>
+								</c:forEach>
+							</select>
+						</c:if>
+					</div>
+					<button type="button" onclick="addMenuItem();">Add menu</button>
+					</form>
+				</div>
+				<div class="col-md-9">
+					<c:forEach items="${ menuTypes}" var="menuType">
+						<fieldset>
+							<legend>${menuType}</legend>
+							<div class="panel-group" id="${menuType}"></div>
+						</fieldset>
+					</c:forEach>
+				</div>
 			</div>
-			</form>
-		</div>
+		
 		
 		<%@ include file="/jsp/layout/footer.jspf"%>
 	</div> 
 </body>
 
 <script>
-	
+	function addMenuItem(){
+		var menuItem = $("#menuItem").val(); 
+		var type = $("#menuType").val();
+		$.get("/medidoc/api/menuItem?id="+menuItem,function(data,status){
+			if(status == "success"){
+				var content = '<div class="panel panel-default"><div class="panel-heading">'+data.name+'</div>'
+				content +='<div class="panel-body">'+data.content+'</div></div>'
+				$("#"+type).append(content)
+			}
+		}
+		);
+		
+	}
 </script>
 </html>
