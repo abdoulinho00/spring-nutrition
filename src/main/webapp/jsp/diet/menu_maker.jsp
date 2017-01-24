@@ -23,7 +23,7 @@
 						<label>Type</label>
 						<select id="menuType" name="menuType" class="form-control">
 							<c:forEach items="${ menuTypes}" var="menuType">
-								<option value="${menuType}"><spring:message text="${menuType }" code="${menuType }" /></option>
+								<option value="${menuType}"><spring:message text="${menuType }" code="menu-maker-${menuType }" /></option>
 							</c:forEach>
 						</select>
 					</div>
@@ -40,13 +40,17 @@
 					<button type="button" onclick="addMenuItem();">Add menu</button>
 					</form>
 				</div>
-				<div class="col-md-9">
+				<div class="col-md-9" id="menu">
 					<c:forEach items="${ menuTypes}" var="menuType">
 						<fieldset>
 							<legend>${menuType}</legend>
 							<div class="panel-group" id="${menuType}"></div>
 						</fieldset>
 					</c:forEach>
+					<div class="row">
+						<button type="button" onclick="printMenu()" class="btn btn-default">Print</button>
+						<button type="submit" class="btn btn-default">Save (not implemented yet)</button>
+					</div>
 				</div>
 			</div>
 		
@@ -61,13 +65,25 @@
 		var type = $("#menuType").val();
 		$.get("/medidoc/api/menuItem?id="+menuItem,function(data,status){
 			if(status == "success"){
-				var content = '<div class="panel panel-default"><div class="panel-heading">'+data.name+'</div>'
+				var content = '<div class="panel panel-default"><div class="panel-heading">'+data.name+'<a href="#" onclick="removeMenuItem(this)"><span class="glyphicon glyphicon-remove"></span></a></div>'
 				content +='<div class="panel-body">'+data.content+'</div></div>'
 				$("#"+type).append(content)
 			}
 		}
 		);
 		
+	}
+	
+	function removeMenuItem(node){
+		node.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode)
+	}
+	
+	function printMenu(){
+		var content = $("#menu").html();
+		w=window.open();
+		w.document.write(content);
+		w.print();
+		w.close();
 	}
 </script>
 </html>

@@ -37,7 +37,7 @@ public class MenuItemDaoImpl implements MenuItemDao{
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<MenuItem> getAllMenuItem() {
-		List<MenuItem> items = entityManager.createQuery("select menu from MenuItem menu ").getResultList();
+		List<MenuItem> items = entityManager.createQuery("select menu from MenuItem menu order by menu.name").getResultList();
 		return items;
 	}
 

@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.aelbardai.medidoc.beans.patient.Patient;
 import com.aelbardai.medidoc.beans.patient.Visit;
 import com.aelbardai.medidoc.service.PatientService;
+import com.googlecode.charts4j.AxisLabelsFactory;
 import com.googlecode.charts4j.Data;
 import com.googlecode.charts4j.GCharts;
 import com.googlecode.charts4j.LineChart;
@@ -97,6 +99,10 @@ public class PatientController {
     	final Plot plot = Plots.newPlot(Data.newData(0, 66.6, 33.3, 100));
         final LineChart chart = GCharts.newLineChart(plot);
         chart.setTitle("My Really Great Chart");
+        chart.setSize(600, 480);
+       
+        chart.addXAxisLabels(AxisLabelsFactory.newAxisLabels("Batches", 50.0));
+        chart.addYAxisLabels(AxisLabelsFactory.newAxisLabels("Y axis", 100.0));
         model.addAttribute("chart",chart.toURLString());
     	return "patient/view";
     }
@@ -110,5 +116,13 @@ public class PatientController {
         model.addAttribute("locale", currentLocale);
         return "patient/list";
     }
-
+    
+    /*
+     *  Visit controller methods
+     */
+    @RequestMapping("/visit/add/{id}")
+    public String addVisitForm(Model model){
+    	
+    	return "patient/addVisit";
+    }
 }

@@ -27,3 +27,12 @@ abderrahmane el bardai , software consultant @savoirfairelinux
 email : elbardai.a[at]gmail.com
 #### Notice
 For any comments, features or improvments email me at spring-nutrition[at]gmail.com.
+
+### to do 
+
+- implement the view patient
+- implement add visit to a patient
+- use google charts library instead of charts4j (more beautiful)
+- think about the other sections
+- unit testing
+- write documentation

@@ -38,7 +38,8 @@
 						</div>
 						<div class="panel-body">
 							<p>Ce calcul est à titre purement indicatif. L'ossature et la masse musculaire sont prises en compte dans cette formule, via la circonférence du poignet, afin d'obtenir un résultat plus proche de la realité. C'est certainement le calcul le plus "réaliste".</p>
-							
+							<p>Formule : </p>
+							<p class="hidden">Result : <span id="monnerot_result"></span></p>
 						</div>
 					</div>
 				</div>
@@ -155,6 +156,10 @@
 		$("#imc_result").text(imc_result[0]);
 		$("#imc_description").text(imc_result[1]);
 		$("#imc_result").parent().attr('class','');
+		
+		var monnerot_result = monnerot(height,wrist);
+		$("#monnerot_result").text(monnerot_result);
+		$("#monnerot_result").parent().attr('class','');
 	}
 	function IMC(height, weight){
 		if($.isNumeric(height)){
@@ -231,8 +236,16 @@
 			return "Enter number values for height and age";
 		} 
 	}
-	function monnerot(){
-		//[Taille (en cm) - 100 + (4 * Circonférence du poignet (en cm))] / 2
+	function monnerot(height , wrist){
+		if($.isNumeric(height) && $.isNumeric(wrist)){
+			height = parseInt(height);
+			wrist = parseFloat(wrist);
+			var result = (height -100 + (4*wrist))/2 ;
+			return result;
+		}
+		else{
+			return "Invalid height or wrist values" ;
+		}
 	}
 </script>
 </html>

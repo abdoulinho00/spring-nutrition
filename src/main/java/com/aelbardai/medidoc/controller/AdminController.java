@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.aelbardai.medidoc.beans.diet.MenuItem;
 import com.aelbardai.medidoc.service.MenuItemService;
@@ -41,11 +42,23 @@ public class AdminController {
         return "admin/menu_maker/list";
     }
 	
+	
 	@RequestMapping(value = "/menu/add" ,method = RequestMethod.GET)
-    public String addEditMenu(ModelMap model ) {
-		model.addAttribute("menuItem", new MenuItem());
+    public String addEditMenu(@RequestParam(value = "id" ,required =false) Long id , ModelMap model ) {
+		MenuItem menuItem;
+		if(id != null && id > 0){
+			menuItem = menuItemService.getMenuItem(id);
+			if(menuItem == null){
+				menuItem = new MenuItem();
+			}
+		}
+		else{
+			menuItem = new MenuItem();
+		}
+		model.addAttribute("menuItem",menuItem);
         return "admin/menu_maker/add-edit";
     }
+	
 	@RequestMapping(value = "/menu/add" ,method = RequestMethod.POST)
 	public String submitMenuForm( MenuItem menuItem, BindingResult result  ) {
 		if(menuItem == null){
@@ -53,12 +66,18 @@ public class AdminController {
 		}
 		else{
 			if(menuItem.getId() > 0){
-				menuItemService.addMenuItem(menuItem);
-			}
-			else{
 				menuItemService.updateMenuItem(menuItem);
 			}
+			else{
+				menuItemService.addMenuItem(menuItem);
+			}
 		}
+		return "redirect:/admin/menu";
+	}
+	
+	@RequestMapping("/menu/remove")
+	public String removeMenuItem(@RequestParam("id") long id){
+		menuItemService.deleteMenuItem(id);
 		return "redirect:/admin/menu";
 	}
 	

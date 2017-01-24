@@ -20,13 +20,14 @@
 				</div>
 				<div class="panel-body">
 					<form method="post">
+						<input type="hidden" name="id" value="${menuItem.id}" />
 						<div class="form-group">
 							<label>Name : </label> 
-							<input type="text" name="name" class="form-control" />
+							<input type="text" name="name" class="form-control" value="${menuItem.name}" />
 						</div>
 						<div class="form-group">
 							<label>Description : </label> 
-							<input type="text" name="description" placeholder="make it small" class="form-control"/>
+							<input type="text" name="description" placeholder="small description" class="form-control" value="${menuItem.description}"/>
 						</div>
 						
 						<fieldset >
@@ -36,26 +37,26 @@
 							<div id="metrics" class="row">
 								<div class="form-group col-md-3">
 									<label>Calories : </label> 
-									<input type="text" name="calories" placeholder="0.0" class="form-control"/>
+									<input type="text" name="calories" placeholder="0.0" class="form-control" value="${menuItem.calories}"/>
 								</div>
 								<div class="form-group col-md-3">
 									<label>Proteins : </label> 
-									<input type="text" name="proteins" placeholder="0.0" class="form-control"/>
+									<input type="text" name="proteins" placeholder="0.0" class="form-control" value="${menuItem.proteins}"/>
 								</div>
 								<div class="form-group col-md-3">
 									<label>Carbs : </label> 
-									<input type="text" name="carbs" placeholder="0.0" class="form-control"/>
+									<input type="text" name="carbs" placeholder="0.0" class="form-control" value="${menuItem.carbs}"/>
 								</div>
 								<div class="form-group col-md-3">
 									<label>Fat : </label> 
-									<input type="text" name="fat" placeholder="0.0" class="form-control"/>
+									<input type="text" name="fat" placeholder="0.0" class="form-control" value="${menuItem.fat}"/>
 								</div>
 						</div>
 						</fieldset>
 						
 						<div>
 							<label>Content : </label>
-							<textarea id="content" name="content"></textarea>
+							<textarea id="content" name="content" >${menuItem.content}</textarea>
 						</div>
 		
 						<div class="row">

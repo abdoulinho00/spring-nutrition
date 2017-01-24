@@ -39,7 +39,6 @@ public class PatientDaoImp implements PatientDao {
 	public Patient updatePatient(Patient patient) {
 		for(Visit visit : patient.getVisits()){
 			visit.setPatient(patient);
-			visit.getStatus().setVisit(visit);
 		}
 		entityManager.merge(patient);
 		return patient;

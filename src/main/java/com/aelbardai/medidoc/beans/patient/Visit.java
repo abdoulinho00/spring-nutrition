@@ -21,14 +21,28 @@ public class Visit implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 7982951330048611643L;
+	
+	/*
+	 * Visit attributes
+	 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	private String reason;
 	private String description;
-	@OneToOne( cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
-	private HealthStatus status;
 	private Date visitTime;
+	/*
+	 * Health status attributes
+	 */
+	private float height;
+	private float weight;
+	private short bloodPressure;
+	private short sugarRate;
+	private short heartBeat;
+	
+	/*
+	 * Attached patient
+	 */
 	@ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="patient_id")
 	private Patient patient;
@@ -61,15 +75,6 @@ public class Visit implements Serializable {
 		this.description = description;
 	}
 
-	public HealthStatus getStatus() {
-		if(status==null) setStatus(new HealthStatus());
-		return status;
-	}
-
-	public void setStatus(HealthStatus status) {
-		
-		this.status = status;
-	}
 
 	public Date getVisitTime() {
 		return visitTime;
@@ -89,6 +94,46 @@ public class Visit implements Serializable {
 
 	public void setPatient(Patient patient) {
 		this.patient = patient;
+	}
+
+	public float getHeight() {
+		return height;
+	}
+
+	public void setHeight(float height) {
+		this.height = height;
+	}
+
+	public float getWeight() {
+		return weight;
+	}
+
+	public void setWeight(float weight) {
+		this.weight = weight;
+	}
+
+	public short getBloodPressure() {
+		return bloodPressure;
+	}
+
+	public void setBloodPressure(short bloodPressure) {
+		this.bloodPressure = bloodPressure;
+	}
+
+	public short getSugarRate() {
+		return sugarRate;
+	}
+
+	public void setSugarRate(short sugarRate) {
+		this.sugarRate = sugarRate;
+	}
+
+	public short getHeartBeat() {
+		return heartBeat;
+	}
+
+	public void setHeartBeat(short heartBeat) {
+		this.heartBeat = heartBeat;
 	}
 	
 	

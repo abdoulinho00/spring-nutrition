@@ -21,8 +21,15 @@ public class DietRestController {
 	
 	@RequestMapping(value= "/menuItem")
 	@ResponseBody public MenuItem getMenuItem(@RequestParam("id") long id){
-		MenuItem item = menuItemService.getMenuItem(id);
-		logger.error(item.getName());
+		MenuItem item;
+		try{
+			item = menuItemService.getMenuItem(id);
+		}
+		catch(Exception e){
+			logger.error("entry not found");
+			item = new MenuItem();
+		}
+		
 		return item;
 	}
 	

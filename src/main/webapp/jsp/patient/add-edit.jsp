@@ -25,7 +25,6 @@
 				<c:if test="${ patient.id > 0 }">
 					<form:input type="hidden" path="id" value="${patient.id}" />
 					<form:input type="hidden" path="visits[0].id" value="${patient.visits[0].id}" />
-					<form:input type="hidden" path="visits[0].status.id" value="${patient.visits[0].status.id}" />
 				</c:if>
 				<div class="panel panel-primary">
 					<div class="panel-heading">
@@ -246,10 +245,10 @@
 								<label class="col-md-2 control-lable" for="height"><spring:message
 										code="patient-height" /></label>
 								<div class="col-md-2">
-									<form:input type="text" path="visits[0].status.height"
+									<form:input type="text" path="visits[0].height"
 										id="height" class="form-control input-sm" />
 									<div class="has-error">
-										<form:errors path="visits[0].status.height"
+										<form:errors path="visits[0].height"
 											class="help-inline" />
 									</div>
 								</div>
