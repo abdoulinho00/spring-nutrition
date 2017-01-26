@@ -5,13 +5,17 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.aelbardai.medidoc.beans.article.Article;
+import com.aelbardai.medidoc.beans.article.ArticleType;
 import com.aelbardai.medidoc.beans.diet.MenuItem;
+import com.aelbardai.medidoc.service.ArticleService;
 import com.aelbardai.medidoc.service.MenuItemService;
 
 @Controller
@@ -21,6 +25,8 @@ public class AdminController {
 	private static final Logger logger = Logger.getLogger(AdminController.class);
 	@Autowired
 	MenuItemService menuItemService;
+	@Autowired
+	ArticleService articleService;
 	
 	@RequestMapping(value = "" ,method = RequestMethod.GET)
     public String adminControlPanel(ModelMap model ) {
@@ -81,5 +87,50 @@ public class AdminController {
 		return "redirect:/admin/menu";
 	}
 	
+	/*
+	 * Articles admin section
+	 * 
+	 */
+	@RequestMapping("/articles")
+	public String listArticles(Model model){
+		List<Article> articles = articleService.getAllArticle();
+		model.addAttribute("articles", articles);
+		return "admin/article/list";
+	}
+	
+	@RequestMapping("/articles/add")
+	public String addEditArticleForm(@RequestParam(value= "id" , required=false) Long id, Model model){
+		Article article;
+		if(id !=null && id >0){
+			article = articleService.getArticleById(id);
+			if(article == null){
+				article = new Article();
+			}
+		}
+		else{
+			article = new Article();
+		}
+		model.addAttribute("types", ArticleType.values());
+		model.addAttribute("article" , article);
+		return "admin/article/addEdit";
+	}
+	
+	@RequestMapping(value = "/articles/add" , method= RequestMethod.POST)
+	public  String addEditArticle(Article article , BindingResult result){
+		if(article.getId() > 0){
+			articleService.updateArticle(article);
+		}
+		else{
+			articleService.addArticle(article);
+		}
+		return "redirect:/admin/articles";
+	}
+	
+	public String removeArticle(@RequestParam("id") long id){
+		if(id > 0 ){
+			articleService.deleteArticle(id);
+		}
+		return "redirect:/admin/articles";
+	}
 
 }

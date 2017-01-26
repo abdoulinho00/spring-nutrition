@@ -1,5 +1,10 @@
 package com.aelbardai.medidoc.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Locale;
 
@@ -10,13 +15,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.aelbardai.medidoc.beans.patient.Patient;
 import com.aelbardai.medidoc.beans.patient.Visit;
+import com.aelbardai.medidoc.configuration.MedidocKeys;
 import com.aelbardai.medidoc.service.PatientService;
+import com.aelbardai.medidoc.service.VisitService;
 import com.googlecode.charts4j.AxisLabelsFactory;
 import com.googlecode.charts4j.Data;
 import com.googlecode.charts4j.GCharts;
@@ -30,12 +39,15 @@ public class PatientController {
 	
 	@Autowired
 	private PatientService patientService;
+	@Autowired
+	private VisitService visitService;
 	private static final Logger logger = Logger.getLogger(PatientController.class);
+	
+	
 	
     @RequestMapping(value = "/add" ,method = RequestMethod.GET)
     public String addPatientform(ModelMap model ) {
     	logger.warn("from the add GET method");
-    	logger.info("just some information");
     	Patient patient = new Patient();
     	Visit visit = new Visit();
     	patient.getVisits().add(visit);
@@ -53,11 +65,29 @@ public class PatientController {
     }
     
     @RequestMapping(value = "/add" ,method = RequestMethod.POST)
-    public String addPatient(  Patient patient, BindingResult result ) {
-    	System.out.println("from the add POST method");
-    	System.out.println("patient name : " + patient.getFullname());
-    	patient.getVisits().get(0).setPatient(patient);
-    	patientService.addPatient(patient);
+    public String addPatient(@RequestParam("file") MultipartFile file, Patient patient, BindingResult result ) {
+        
+        patient.getVisits().get(0).setPatient(patient);
+    	
+    	if(file.isEmpty()){
+    	    patient = patientService.addPatient(patient);
+            logger.info("empty file");
+        }
+        else{
+            try {
+                patient.setPicturePath(file.getOriginalFilename());
+                patient = patientService.addPatient(patient);
+
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(MedidocKeys.UPLOADED_FOLDER + patient.getId()+"/" +file.getOriginalFilename());
+                Files.createDirectories(path.getParent());
+                Files.write(path, bytes, StandardOpenOption.CREATE);
+            } catch (IOException e) {
+                //e.printStackTrace();
+                logger.error("file not found : " + file.getOriginalFilename());
+            }
+            
+        }
     	return "redirect:/patient/list";
     }
     
@@ -71,17 +101,29 @@ public class PatientController {
     }
     
     @RequestMapping(value="/edit" ,  method= RequestMethod.POST)
-    public String editPatient(Patient patient, BindingResult result){
+    public String editPatient(@RequestParam("file") MultipartFile file, Patient patient, BindingResult result){
+        logger.info("from the edit post");
+        if(file.isEmpty() || file.getOriginalFilename().equals("")){
+            patient.setPicturePath(patientService.getPatientById(patient.getId()).getPicturePath());
+            patientService.updatePatient(patient);
+            logger.info("empty file");
+        }
+        else{
+            try {
+                patient.setPicturePath(file.getOriginalFilename());
+                patientService.updatePatient(patient);
+
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(MedidocKeys.UPLOADED_FOLDER + patient.getId()+"/" +file.getOriginalFilename());
+                Files.createDirectories(path.getParent());
+                Files.write(path, bytes, StandardOpenOption.CREATE);
+            } catch (IOException e) {
+                //e.printStackTrace();
+                logger.error("file not found : " + file.getOriginalFilename());
+            }
+            
+        }
     	
-/*    	System.out.println("from the edit patient POST meothd");
-    	System.out.println("patient height : " + patient.getVisits().get(0).getStatus().getHeight());
-    	System.out.println("patient visits : " + patient.getVisits().size());
-    	System.out.println("patient id "+ patient.getId());
-    	System.out.println("visit id "+ patient.getVisits().get(0).getId());*/
-    	/*for(Visit visit : patient.getVisits()){
-    		visit.setPatient(patient);
-    	}*/
-    	patientService.updatePatient(patient);
     	return "redirect:/patient/";
     }
     
@@ -121,8 +163,18 @@ public class PatientController {
      *  Visit controller methods
      */
     @RequestMapping("/visit/add/{id}")
-    public String addVisitForm(Model model){
-    	
+    public String addVisitForm(@PathVariable("id") long id ,Model model){
+    	model.addAttribute("visit", new Visit());
+    	model.addAttribute("patientId", id);
     	return "patient/addVisit";
+    }
+    
+    @RequestMapping(value="/visit/add" , method = RequestMethod.POST)
+    public String addVisit(Visit visit, BindingResult result){
+    	long patientId = visit.getPatient().getId();
+    	logger.info("visit patient id : "+ patientId);
+    	
+    	visitService.addVisit(visit, patientId);
+    	return "redirect:/patient/view?id="+visit.getPatient().getId();
     }
 }

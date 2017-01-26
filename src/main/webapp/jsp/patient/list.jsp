@@ -32,7 +32,7 @@
 							<td>${patient.gender}</td>
 							<td>${patient.goodWeight}</td>
 							<td>
-								<form method="post" action="${url}patient/delete"
+								<form method="post" action="${url}patient/delete" 
 									class="form-inline">
 									<a class="btn btn-primary"
 										href="${url}patient/view?id=${patient.id}" role="button">view</a>

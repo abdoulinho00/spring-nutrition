@@ -21,7 +21,7 @@
 		</c:choose>
 		<div class="form-container">
 			<form:form method="POST" modelAttribute="patient" action="${action}" id="formSelector"
-				class="form-horizontal">
+				class="form-horizontal" enctype="multipart/form-data">
 				<c:if test="${ patient.id > 0 }">
 					<form:input type="hidden" path="id" value="${patient.id}" />
 					<form:input type="hidden" path="visits[0].id" value="${patient.visits[0].id}" />
@@ -32,6 +32,8 @@
 					</div>
 					<div class="panel-body">
 						<!-- Patient full name -->
+						<div class="row">
+							<div class="col-md-8">
 						<div class="row">
 							<div class="form-group col-md-12">
 								<label class="col-md-2 control-lable" for="fullname"> <spring:message
@@ -45,23 +47,50 @@
 								</div>
 							</div>
 						</div>
+						
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="fullname"> <spring:message
+										code="patient-fullname" /></label>
+								<div class="col-md-4 text-right">
+									<input type="file" name="file" id="file"
+										 class="form-control input-sm" />
+									
+								</div>
+							</div>
+						</div>
 
 						<!-- Patient birthday and age  -->
 						<div class="row">
-							<div class="form-group col-md-12">
-								<label class="col-md-2 control-lable" for="birthday"> <spring:message
+							<div class='col-md-3'>
+						        <div class="form-group">
+						        	<label class="col-md-4 control-lable">Birthday</label>
+						            <div class='col-md-8 input-group date' id='birthday'>
+						            	<fmt:formatDate pattern="dd/MM/yyyy"
+										value="${patient.birthday}" var="strDate" />
+						                <input type='text' name="birthday" value="${strDate}" class="form-control input-sm" readonly/>
+						                <span class="input-group-addon">
+						                    <span class="glyphicon glyphicon-calendar"></span>
+						                </span>
+						            </div>
+						        </div>
+						    </div>
+								<%-- <label class="col-md-2 control-lable" for="birthday"> <spring:message
 										code="patient-birthday" /></label>
 								<div class="col-md-2">
 									<fmt:formatDate pattern="dd/MM/yyyy"
 										value="${patient.birthday}" var="strDate" />
 									<form:input type="text" path="birthday" id="birthday"
 										value="${strDate}" class="form-control input-sm" />
+									<span class="input-group-addon">
+					                    <span class="glyphicon glyphicon-calendar"></span>
+					                </span>
 									<div class="has-error">
 										<form:errors path="birthday" class="help-inline" />
 									</div>
-								</div>
+								</div> --%>
 
-								<label class="col-md-1 control-lable" for="age"> <spring:message
+								<label class="col-md-1 control-label" for="age"> <spring:message
 										code="patient-age" /></label>
 								<div class="col-md-2">
 									<form:input type="text" path="age" id="age"
@@ -70,7 +99,7 @@
 										<form:errors path="age" class="help-inline" />
 									</div>
 								</div>
-							</div>
+							
 						</div>
 
 
@@ -151,7 +180,13 @@
 								</div>
 							</div>
 						</div>
-
+						</div>
+						<div class="col-md-4 text-right">
+							<c:if test="${ patient.id gt 0}">
+								<img src="${url}api/getImage/${patient.id}?imageId=${patient.picturePath}" class="img-thumbnail"  alt="profile picture" width="250" />
+							</c:if>
+						</div>
+					</div>
 						<%-- <div class="row">
 							<div class="form-group col-md-12">
 								<label class="col-md-3 control-lable" for="adress">Adress</label>
@@ -420,7 +455,7 @@
                 <div class="col-md-7" class="form-control input-sm">
                     <form:radiobuttons path="section" items="${sections}" />
                     <div class="has-error">
-                        <form:errors path="section" class="help-inline"/>
+                        <form:errors patignoreReadonly: trueh="section" class="help-inline"/>
                     </div>
                 </div>
             </div>
@@ -486,11 +521,16 @@ jQuery( document ).ready(function() {
 
 </script>
 
-<script type="text/javascript">
-            $(function () {
-                $('#birthday').datetimepicker({
-                	
-                });
-            });
-        </script>
+
+<script>
+$( function() {
+	$( "#birthday" ).datetimepicker(
+			{
+				format : "DD/MM/YYYY",
+				ignoreReadonly: true		
+			}
+	);
+	} );
+</script>
+        
 </html>

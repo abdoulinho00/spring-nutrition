@@ -3,18 +3,34 @@ package com.aelbardai.medidoc.beans.article;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+@Entity
 public class Article implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6333546188980805846L;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	private String title;
 	private String content;
 	private String tags;
 	private String author;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
 	private Date writtenAt;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
 	private Date modifiedAt;
 	private ArticleType type;
 	public long getId() {

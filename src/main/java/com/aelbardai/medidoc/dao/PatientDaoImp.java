@@ -30,7 +30,6 @@ public class PatientDaoImp implements PatientDao {
 
 	@Override
 	public Patient addPatient(Patient patient) {
-		System.out.println("from dao patient fullname : " + patient.getFullname());
 		entityManager.persist(patient);
 		return patient;
 	}
