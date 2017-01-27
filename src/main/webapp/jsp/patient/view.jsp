@@ -24,35 +24,40 @@
 				<p>To add a visit click <a href="${url }patient/visit/add/${patient.id}">here</a></p>
 			</div>
 		</div>
-		<div id="weight_chart" class="text-center" style="width: 90%; height: 800px; margin: 0 auto;"> 
+		<c:if test="${fn:length(patient.visits)>0}">
+			<div id="weight_chart" class="text-center" style="width: 90%; height: 800px; margin: 0 auto;"> 
+				
+			</div>
 			
-		</div>
-		
-		<div class="panel panel-default">
-			<div class="panel-heading text-center">
-				<strong>Visit history</strong>
-			</div>
-			<div class="panel-boody">
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th>Reason</th>
-							<th>Visit Date</th>
-							<th>Weight</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items ="${patient.visits}" var="visit">
+			<div class="panel panel-default">
+				<div class="panel-heading text-center">
+					<strong>Visit history</strong>
+				</div>
+				<div class="panel-boody">
+					<table class="table table-striped">
+						<thead>
 							<tr>
-								<td>${visit.reason}</td>
-								<td><fmt:formatDate pattern="dd MMMM yyyy"  value="${visit.visitTime}" /></td>
-								<td>${visit.weight}</td>
+								<th>Reason</th>
+								<th>Visit Date</th>
+								<th>Weight</th>
+								<th>Actions</th>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							<c:forEach items ="${patient.visits}" var="visit">
+								<tr>
+									<td>${visit.reason}</td>
+									<td><fmt:formatDate pattern="dd MMMM yyyy"  value="${visit.visitTime}" /></td>
+									<td>${visit.weight}</td>
+									<td><a class="btn btn-sm" href="${url}patient/visit/view/${visit.id}"><span class="glyphicon glyphicon-search"></span></a></td>
+									<td><a class="btn btn-sm" href="${url}patient/visit/edit/${visit.id}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
 			</div>
-		</div>
+		</c:if>
 		<%@ include file="/jsp/layout/footer.jspf"%>
 	</div>
 	

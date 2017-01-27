@@ -27,62 +27,81 @@ import com.aelbardai.medidoc.service.PatientService;
 @RestController
 @RequestMapping("/api")
 public class DietRestController {
-	
-	Log logger = LogFactory.getLog(DietRestController.class);
-	@Autowired
-	MenuItemService menuItemService;
-	@Autowired
-	PatientService patientService;
-	
-	@RequestMapping(value= "/menuItem")
-	@ResponseBody public MenuItem getMenuItem(@RequestParam("id") long id){
-		MenuItem item;
-		try{
-			item = menuItemService.getMenuItem(id);
-		}
-		catch(Exception e){
-			logger.error("entry not found");
-			item = new MenuItem();
-		}
-		
-		return item;
-	}
-	
-	
-	@RequestMapping("/getchartdata/{id}")
-	public List<Object[]> getChartData(@PathVariable("id") long id){
-		List<Object[]> data = new ArrayList<>();
-		Object[] object = {"Date","Weight"};
-		data.add(object);
-		List<Visit> visits  = patientService.getPatientById(id).getVisits();
-		for(int i = visits.size() -1 ; i>=0 ; i--){
-			Visit v = visits.get(i);
-			if(v.getVisitTime() != null && v.getWeight() > 0){
-				Object[] obj =new Object[2];
-				obj[0] = v.getVisitTime();
-				obj[1] = v.getWeight();
-				data.add(obj);
-			}
-		}
-		return data;
-	}
-	
-	@RequestMapping(value = "/getImage/{id}")
-	@ResponseBody
-	public byte[] getImage(@PathVariable("id") long id , @RequestParam("imageId") String imageId, HttpServletRequest request)  {
-	//String rpath=request.getRealPath("/home/aelbardai/data");
-	String rpath=MedidocKeys.UPLOADED_FOLDER; 
-	rpath=rpath+"/"+id+"/"+imageId; // whatever path you used for storing the file
-	Path path = Paths.get(rpath);
-	byte[] data =null;
-    try {
-        data = Files.readAllBytes(path);
-    } catch (IOException e) {
-        // TODO Auto-generated catch block
-        //e.printStackTrace();
-        logger.error("file not found : " + id + "/" +  imageId);
-    } 
-	return data;
-	}
-	
+
+    Log logger = LogFactory.getLog(DietRestController.class);
+    @Autowired
+    MenuItemService menuItemService;
+    @Autowired
+    PatientService patientService;
+
+    @RequestMapping(value = "/menuItem")
+    @ResponseBody
+    public MenuItem getMenuItem(@RequestParam("id") long id) {
+        MenuItem item;
+        try {
+            item = menuItemService.getMenuItem(id);
+        } catch (Exception e) {
+            logger.error("entry not found");
+            item = new MenuItem();
+        }
+
+        return item;
+    }
+
+    @RequestMapping("/getchartdata/{id}")
+    public List<Object[]> getChartData(@PathVariable("id") long id) {
+        List<Object[]> data = new ArrayList<>();
+        Object[] object = { "Date", "Weight" };
+        data.add(object);
+        List<Visit> visits = patientService.getPatientById(id).getVisits();
+        for (int i = visits.size() - 1; i >= 0; i--) {
+            Visit v = visits.get(i);
+            if (v.getVisitTime() != null && v.getWeight() > 0) {
+                Object[] obj = new Object[2];
+                obj[0] = v.getVisitTime();
+                obj[1] = v.getWeight();
+                data.add(obj);
+            }
+        }
+        return data;
+    }
+
+    @RequestMapping(value = "/getImage/{id}")
+    @ResponseBody
+    public byte[] getImage(@PathVariable("id") long id, @RequestParam("imageId") String imageId,
+            HttpServletRequest request) {
+        // String rpath=request.getRealPath("/home/aelbardai/data");
+        String rpath = MedidocKeys.UPLOADED_FOLDER;
+        rpath = rpath + "/" + id + "/" + imageId; // whatever path you used for storing the file
+        Path path = Paths.get(rpath);
+        byte[] data = null;
+        try {
+            data = Files.readAllBytes(path);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            // e.printStackTrace();
+            logger.error("file not found : " + id + "/" + imageId);
+        }
+        return data;
+    }
+
+    @RequestMapping(value = "/getImage/{patientId}/{id}")
+    @ResponseBody
+    public byte[] getImage(@PathVariable("id") long id, @PathVariable("patientId") long patientId, @RequestParam("imageId") String imageId,
+            HttpServletRequest request) {
+        // String rpath=request.getRealPath("/home/aelbardai/data");
+        String rpath = MedidocKeys.UPLOADED_FOLDER;
+        rpath = rpath + "/" + patientId+"/" + id + "/" + imageId; // whatever path you used for storing the file
+        Path path = Paths.get(rpath);
+        byte[] data = null;
+        try {
+            data = Files.readAllBytes(path);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            // e.printStackTrace();
+            logger.error("file not found : " + id + "/" + imageId);
+        }
+        return data;
+    }
+
 }

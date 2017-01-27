@@ -44,7 +44,11 @@ public class Visit implements Serializable {
 	private short bloodPressure;
 	private short sugarRate;
 	private short heartBeat;
-	
+	/*
+	 *  path to image file
+	 */
+	private String beforePath;
+	private String afterPath;
 	/*
 	 * Attached patient
 	 */
@@ -140,6 +144,22 @@ public class Visit implements Serializable {
 	public void setHeartBeat(short heartBeat) {
 		this.heartBeat = heartBeat;
 	}
+
+    public String getBeforePath() {
+        return beforePath;
+    }
+
+    public void setBeforePath(String beforePath) {
+        this.beforePath = beforePath;
+    }
+
+    public String getAfterPath() {
+        return afterPath;
+    }
+
+    public void setAfterPath(String afterPath) {
+        this.afterPath = afterPath;
+    }
 	
 	
 

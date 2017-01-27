@@ -49,25 +49,17 @@ public class PatientController {
     public String addPatientform(ModelMap model ) {
     	logger.warn("from the add GET method");
     	Patient patient = new Patient();
-    	Visit visit = new Visit();
-    	patient.getVisits().add(visit);
+    	/*Visit visit = new Visit();
+    	patient.getVisits().add(visit);*/
     	model.addAttribute("patient", patient);
     	
         return "patient/add-edit";
     }
     
-    @RequestMapping(value = "/add2" ,method = RequestMethod.GET)
-    public String addPatientform2(ModelMap model ) {
-    	System.out.println("from the add GET method");
-    	Patient patient = new Patient();
-    	model.addAttribute("patient", patient);
-        return "patient/add-edit2";
-    }
-    
     @RequestMapping(value = "/add" ,method = RequestMethod.POST)
     public String addPatient(@RequestParam("file") MultipartFile file, Patient patient, BindingResult result ) {
         
-        patient.getVisits().get(0).setPatient(patient);
+        //patient.getVisits().get(0).setPatient(patient);
     	
     	if(file.isEmpty()){
     	    patient = patientService.addPatient(patient);
@@ -170,11 +162,53 @@ public class PatientController {
     }
     
     @RequestMapping(value="/visit/add" , method = RequestMethod.POST)
-    public String addVisit(Visit visit, BindingResult result){
+    public String addVisit(@RequestParam("beforefile") MultipartFile beforeFile ,@RequestParam("afterfile") MultipartFile afterFile,Visit visit, BindingResult result){
     	long patientId = visit.getPatient().getId();
-    	logger.info("visit patient id : "+ patientId);
     	
-    	visitService.addVisit(visit, patientId);
+    	boolean isBeforeFile = !beforeFile.isEmpty() && !beforeFile.getOriginalFilename().equals("");
+    	boolean isAfterFile = !afterFile.isEmpty() && !afterFile.getOriginalFilename().equals("");
+    	if(isBeforeFile){
+    	    visit.setBeforePath(beforeFile.getOriginalFilename());
+    	}
+    	if(isAfterFile){
+    	    visit.setAfterPath(afterFile.getOriginalFilename());
+    	}
+    	
+    	visit = visitService.addVisit(visit, patientId);
+    	
+    	if(isBeforeFile){
+    	    byte[] bytes;
+            try {
+                bytes = beforeFile.getBytes();
+            
+            Path path = Paths.get(MedidocKeys.UPLOADED_FOLDER + patientId+"/" +visit.getId()+"/"  +beforeFile.getOriginalFilename());
+            Files.createDirectories(path.getParent());
+            Files.write(path, bytes, StandardOpenOption.CREATE);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    	}
+    	if(isAfterFile){
+    	    byte[] bytes;
+            try {
+                bytes = afterFile.getBytes();
+            
+            Path path = Paths.get(MedidocKeys.UPLOADED_FOLDER + patientId+"/" +visit.getId()+"/"  +afterFile.getOriginalFilename());
+            Files.createDirectories(path.getParent());
+            Files.write(path, bytes, StandardOpenOption.CREATE);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    	}
+    	
     	return "redirect:/patient/view?id="+visit.getPatient().getId();
+    }
+    
+    @RequestMapping(value="/visit/view/{id}")
+    public String viewVisit(@PathVariable("id") long id , Model model){
+        
+        Visit visit = visitService.getVisitById(id);
+        model.addAttribute("visit" , visit);
+        return "patient/viewVisit";
     }
 }
