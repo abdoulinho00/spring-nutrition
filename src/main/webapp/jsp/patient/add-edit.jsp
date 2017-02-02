@@ -61,8 +61,8 @@
 						</div>
 
 						<!-- Patient birthday and age  -->
-						<div class="row">
-							<div class='col-md-3'>
+						<div class="row form-group">
+							<div class='col-md-6'>
 						        <div class="form-group">
 						        	<label class="col-md-4 control-lable">Birthday</label>
 						            <div class='col-md-8 input-group date' id='birthday'>
@@ -89,7 +89,7 @@
 										<form:errors path="birthday" class="help-inline" />
 									</div>
 								</div> --%>
-
+							<div class="col-md-6">
 								<label class="col-md-1 control-label" for="age"> <spring:message
 										code="patient-age" /></label>
 								<div class="col-md-2">
@@ -99,7 +99,7 @@
 										<form:errors path="age" class="help-inline" />
 									</div>
 								</div>
-							
+							</div>
 						</div>
 
 
@@ -530,7 +530,17 @@ $( function() {
 				ignoreReadonly: true		
 			}
 	);
-	} );
+	
+} );
+
+$( "#birthday input" ).change(calculateAge);
+function calculateAge(){
+	var dob = new Date($("#birthday input").val());
+	var today  = new Date();
+	var age = today - birthday ; 
+	alert(age);
+}
+
 </script>
         
 </html>

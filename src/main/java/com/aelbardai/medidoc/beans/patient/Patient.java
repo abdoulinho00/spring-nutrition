@@ -63,9 +63,13 @@ public class Patient implements Serializable {
 	@Column(name="physical_activity")
 	private String physicalActivity;
 	@OneToMany(mappedBy="patient",
-		       fetch=FetchType.EAGER ,cascade = {CascadeType.ALL})
+		       fetch=FetchType.LAZY ,cascade = {CascadeType.ALL})
 	@OrderBy("visitTime DESC")
 	private List<Visit> visits;
+	@OneToMany(mappedBy="patient",
+	        fetch=FetchType.LAZY ,cascade = {CascadeType.ALL})
+	@OrderBy("visitDate DESC")
+	private List<EstheticVisit> estheticVisits;
 	
 	private String picturePath;
 
@@ -133,7 +137,10 @@ public class Patient implements Serializable {
 
 	public int getAge() {
 		if(birthday!=null){
+		    
+			/*LocalDate now = LocalDate.now();
 			
+			return Period.between(LocalDate.ofEpochDay(birthday.getTime()), now).getYears();*/
 		}
 		return age;
 	}
@@ -293,8 +300,13 @@ public class Patient implements Serializable {
         this.picturePath = picturePath;
     }
 
-	
-	
+    public List<EstheticVisit> getEstheticVisits() {
+        return estheticVisits;
+    }
+
+    public void setEstheticVisits(List<EstheticVisit> estheticVisits) {
+        this.estheticVisits = estheticVisits;
+    }
 
 	
 }

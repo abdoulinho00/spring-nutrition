@@ -16,7 +16,7 @@
 				<strong>Add visit</strong>
 			</div>
 			<div class="panel-body">
-				<form method="post" action="${url}patient/visit/add" enctype="multipart/form-data">
+				<form method="post" action="${url}patient/nutrition/visit/add" enctype="multipart/form-data">
 					<input type="hidden" name="patient.id" value="${patientId}" />
 					<div class="row">
 						<div class="col-md-6">

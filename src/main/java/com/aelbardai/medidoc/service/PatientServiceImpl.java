@@ -1,12 +1,15 @@
 package com.aelbardai.medidoc.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aelbardai.medidoc.beans.patient.EstheticVisit;
 import com.aelbardai.medidoc.beans.patient.Patient;
+import com.aelbardai.medidoc.beans.patient.Visit;
 import com.aelbardai.medidoc.dao.PatientDao;
 
 
@@ -22,6 +25,8 @@ public class PatientServiceImpl implements PatientService{
 	 */
 	@Override
 	public Patient addPatient(Patient patient) {
+	    patient.setEstheticVisits(new ArrayList<EstheticVisit>());
+	    patient.setVisits(new ArrayList<Visit>());
 		return patientDao.addPatient(patient);
 	}
 

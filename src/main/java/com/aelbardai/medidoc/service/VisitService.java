@@ -9,6 +9,8 @@ public interface VisitService {
 	public Visit getVisitById(long id);
 
 	public List<Visit> getAllVisit();
+	
+	public List<Visit> getVisitByPatientId(long patientId);
 
 	public Visit addVisit(Visit visit, long patientId);
 

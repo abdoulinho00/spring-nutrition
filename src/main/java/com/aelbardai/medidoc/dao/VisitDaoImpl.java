@@ -45,4 +45,10 @@ public class VisitDaoImpl implements VisitDao{
 		entityManager.remove(getVisitById(id));
 	}
 
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Visit> getVisitByPatientId(long patientId) {
+        return entityManager.createQuery("select visit from Visit visit where visit.patient.id = :patientId").setParameter("patientId", patientId).getResultList();
+    }
+
 }

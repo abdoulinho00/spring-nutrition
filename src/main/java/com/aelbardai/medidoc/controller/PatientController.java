@@ -15,23 +15,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.aelbardai.medidoc.beans.patient.EstheticVisit;
 import com.aelbardai.medidoc.beans.patient.Patient;
 import com.aelbardai.medidoc.beans.patient.Visit;
 import com.aelbardai.medidoc.configuration.MedidocKeys;
+import com.aelbardai.medidoc.service.EstheticVisitService;
 import com.aelbardai.medidoc.service.PatientService;
 import com.aelbardai.medidoc.service.VisitService;
-import com.googlecode.charts4j.AxisLabelsFactory;
-import com.googlecode.charts4j.Data;
-import com.googlecode.charts4j.GCharts;
-import com.googlecode.charts4j.LineChart;
-import com.googlecode.charts4j.Plot;
-import com.googlecode.charts4j.Plots;
 
 @Controller
 @RequestMapping("/patient")
@@ -41,6 +38,8 @@ public class PatientController {
 	private PatientService patientService;
 	@Autowired
 	private VisitService visitService;
+	@Autowired
+    private EstheticVisitService estheticVisitService;
 	private static final Logger logger = Logger.getLogger(PatientController.class);
 	
 	
@@ -129,15 +128,11 @@ public class PatientController {
     @RequestMapping(value="/view" ,method = RequestMethod.GET)
     public String viewPatient(ModelMap model ,  @RequestParam(value="id") long id){
     	Patient patient = patientService.getPatientById(id);
+    	patient.setVisits(visitService.getVisitByPatientId(id));
+    	patient.setEstheticVisits(estheticVisitService.getEstheticVisitByPatientId(id));
     	model.addAttribute("patient", patient);
-    	final Plot plot = Plots.newPlot(Data.newData(0, 66.6, 33.3, 100));
-        final LineChart chart = GCharts.newLineChart(plot);
-        chart.setTitle("My Really Great Chart");
-        chart.setSize(600, 480);
-       
-        chart.addXAxisLabels(AxisLabelsFactory.newAxisLabels("Batches", 50.0));
-        chart.addYAxisLabels(AxisLabelsFactory.newAxisLabels("Y axis", 100.0));
-        model.addAttribute("chart",chart.toURLString());
+    	logger.info("esthetic visits  :" + patient.getEstheticVisits().size());
+    	logger.info(" visits  :" + estheticVisitService.getAllEstheticVisit());
     	return "patient/view";
     }
     
@@ -152,16 +147,16 @@ public class PatientController {
     }
     
     /*
-     *  Visit controller methods
+     *  nutrition Visit controller methods
      */
-    @RequestMapping("/visit/add/{id}")
+    @RequestMapping("/nutrition/visit/add/{id}")
     public String addVisitForm(@PathVariable("id") long id ,Model model){
     	model.addAttribute("visit", new Visit());
     	model.addAttribute("patientId", id);
     	return "patient/addVisit";
     }
     
-    @RequestMapping(value="/visit/add" , method = RequestMethod.POST)
+    @RequestMapping(value="/nutrition/visit/add" , method = RequestMethod.POST)
     public String addVisit(@RequestParam("beforefile") MultipartFile beforeFile ,@RequestParam("afterfile") MultipartFile afterFile,Visit visit, BindingResult result){
     	long patientId = visit.getPatient().getId();
     	
@@ -204,11 +199,47 @@ public class PatientController {
     	return "redirect:/patient/view?id="+visit.getPatient().getId();
     }
     
-    @RequestMapping(value="/visit/view/{id}")
+    @RequestMapping(value="/nutrition/visit/view/{id}")
     public String viewVisit(@PathVariable("id") long id , Model model){
         
         Visit visit = visitService.getVisitById(id);
         model.addAttribute("visit" , visit);
         return "patient/viewVisit";
+    }
+    
+    /*
+     * Esthetic visit controller methods
+     */
+    
+    @RequestMapping("/esthetic/visit/add/{patientId}")
+    public String addEditVisit(@RequestParam(value= "id" , required=false) Long id, @PathVariable long patientId, Model model){
+        EstheticVisit visit = null;
+        if(id !=null && id >0){
+            //call visit service
+            visit = estheticVisitService.getEstheticVisitById(id) ;
+        }
+        if(visit ==null){
+            visit = new EstheticVisit();
+        }
+        model.addAttribute("patientId" , patientId);
+        model.addAttribute("visit", visit);
+        return "esthetic/add-edit";
+    }
+    
+    @RequestMapping(value = "/esthetic/visit/add" , method = RequestMethod.POST)
+    public String addEditVisit(@ModelAttribute("visit") EstheticVisit visit , BindingResult result){
+        long patientId = visit.getPatient().getId();
+        if(visit.getId() <= 0){
+            estheticVisitService.addEstheticVisit(visit , patientId);
+        }
+        else{
+            estheticVisitService.updateEstheticVisit(visit);
+        }
+        
+        /*logger.info("Size of the ssesions "+ visit.getSessions().size()); //this is the hard part
+        for(EstheticSession session : visit.getSessions()){
+            logger.info("observation : " + session.getObservations());
+        }*/
+        return "redirect:/patient/view?id="+visit.getPatient().getId();
     }
 }

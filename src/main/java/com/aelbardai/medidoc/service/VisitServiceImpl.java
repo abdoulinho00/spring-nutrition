@@ -46,4 +46,9 @@ public class VisitServiceImpl implements VisitService{
 		visitDao.deleteVisit(id);
 	}
 
+    @Override
+    public List<Visit> getVisitByPatientId(long patientId) {
+        return visitDao.getVisitByPatientId(patientId);
+    }
+
 }

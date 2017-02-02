@@ -41,9 +41,23 @@ public class Visit implements Serializable {
 	 */
 	private float height;
 	private float weight;
-	private short bloodPressure;
-	private short sugarRate;
-	private short heartBeat;
+	
+	private float waistSize;
+	private float armSize;
+	private float hipSize;
+	private float wristSize;
+	
+	private float baseMetabolism; // in Kcal
+	private short biologicalAge;
+	private float water; // in %
+	private float boneMass;
+	private float visceralFat;
+	private float leanMass;
+	private float fatMass;
+	
+	
+	
+	
 	/*
 	 *  path to image file
 	 */
@@ -52,7 +66,7 @@ public class Visit implements Serializable {
 	/*
 	 * Attached patient
 	 */
-	@ManyToOne(cascade = {CascadeType.ALL},fetch= FetchType.EAGER)
+	@ManyToOne(cascade = {CascadeType.ALL},fetch= FetchType.LAZY)
     @JoinColumn(name="patient_id")
 	private Patient patient;
 	
@@ -121,30 +135,6 @@ public class Visit implements Serializable {
 		this.weight = weight;
 	}
 
-	public short getBloodPressure() {
-		return bloodPressure;
-	}
-
-	public void setBloodPressure(short bloodPressure) {
-		this.bloodPressure = bloodPressure;
-	}
-
-	public short getSugarRate() {
-		return sugarRate;
-	}
-
-	public void setSugarRate(short sugarRate) {
-		this.sugarRate = sugarRate;
-	}
-
-	public short getHeartBeat() {
-		return heartBeat;
-	}
-
-	public void setHeartBeat(short heartBeat) {
-		this.heartBeat = heartBeat;
-	}
-
     public String getBeforePath() {
         return beforePath;
     }
@@ -159,6 +149,94 @@ public class Visit implements Serializable {
 
     public void setAfterPath(String afterPath) {
         this.afterPath = afterPath;
+    }
+
+    public float getWaistSize() {
+        return waistSize;
+    }
+
+    public void setWaistSize(float waistSize) {
+        this.waistSize = waistSize;
+    }
+
+    public float getArmSize() {
+        return armSize;
+    }
+
+    public void setArmSize(float armSize) {
+        this.armSize = armSize;
+    }
+
+    public float getHipSize() {
+        return hipSize;
+    }
+
+    public void setHipSize(float hipSize) {
+        this.hipSize = hipSize;
+    }
+
+    public float getWristSize() {
+        return wristSize;
+    }
+
+    public void setWristSize(float wristSize) {
+        this.wristSize = wristSize;
+    }
+
+    public float getBaseMetabolism() {
+        return baseMetabolism;
+    }
+
+    public void setBaseMetabolism(float baseMetabolism) {
+        this.baseMetabolism = baseMetabolism;
+    }
+
+    public short getBiologicalAge() {
+        return biologicalAge;
+    }
+
+    public void setBiologicalAge(short biologicalAge) {
+        this.biologicalAge = biologicalAge;
+    }
+
+    public float getWater() {
+        return water;
+    }
+
+    public void setWater(float water) {
+        this.water = water;
+    }
+
+    public float getBoneMass() {
+        return boneMass;
+    }
+
+    public void setBoneMass(float boneMass) {
+        this.boneMass = boneMass;
+    }
+
+    public float getVisceralFat() {
+        return visceralFat;
+    }
+
+    public void setVisceralFat(float visceralFat) {
+        this.visceralFat = visceralFat;
+    }
+
+    public float getLeanMass() {
+        return leanMass;
+    }
+
+    public void setLeanMass(float leanMass) {
+        this.leanMass = leanMass;
+    }
+
+    public float getFatMass() {
+        return fatMass;
+    }
+
+    public void setFatMass(float fatMass) {
+        this.fatMass = fatMass;
     }
 	
 	
