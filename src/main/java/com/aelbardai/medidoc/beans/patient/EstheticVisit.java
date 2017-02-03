@@ -42,14 +42,14 @@ public class EstheticVisit {
     private String observations;
     
     @OneToMany(mappedBy="estheticVisit",
-            fetch=FetchType.LAZY ,cascade = {CascadeType.ALL})
+            fetch=FetchType.EAGER ,cascade = {CascadeType.ALL})
     @OrderBy("date ASC")
     private List<EstheticSession> sessions;
     
     
     
     
-    @ManyToOne(cascade = {CascadeType.ALL},fetch= FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.ALL},fetch= FetchType.EAGER)
     @JoinColumn(name="patient_id")
     private Patient patient;
 

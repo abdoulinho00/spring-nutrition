@@ -66,7 +66,7 @@ public class Visit implements Serializable {
 	/*
 	 * Attached patient
 	 */
-	@ManyToOne(cascade = {CascadeType.ALL},fetch= FetchType.LAZY)
+	@ManyToOne(cascade = {CascadeType.ALL},fetch= FetchType.EAGER)
     @JoinColumn(name="patient_id")
 	private Patient patient;
 	

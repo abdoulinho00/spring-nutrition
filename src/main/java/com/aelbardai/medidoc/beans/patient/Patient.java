@@ -63,11 +63,11 @@ public class Patient implements Serializable {
 	@Column(name="physical_activity")
 	private String physicalActivity;
 	@OneToMany(mappedBy="patient",
-		       fetch=FetchType.LAZY ,cascade = {CascadeType.ALL})
+		       fetch=FetchType.EAGER ,cascade = {CascadeType.ALL})
 	@OrderBy("visitTime DESC")
 	private List<Visit> visits;
 	@OneToMany(mappedBy="patient",
-	        fetch=FetchType.LAZY ,cascade = {CascadeType.ALL})
+	        fetch=FetchType.EAGER ,cascade = {CascadeType.ALL})
 	@OrderBy("visitDate DESC")
 	private List<EstheticVisit> estheticVisits;
 	

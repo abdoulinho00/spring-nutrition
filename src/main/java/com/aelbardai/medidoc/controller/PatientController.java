@@ -217,6 +217,7 @@ public class PatientController {
         if(id !=null && id >0){
             //call visit service
             visit = estheticVisitService.getEstheticVisitById(id) ;
+            logger.info("patient id "  + visit.getPatient().getId());
         }
         if(visit ==null){
             visit = new EstheticVisit();
