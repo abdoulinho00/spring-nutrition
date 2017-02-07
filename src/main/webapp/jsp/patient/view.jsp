@@ -21,8 +21,8 @@
 				
 				
 					
-				<p>To add a visit click <a href="${url }patient/nutrition/visit/add/${patient.id}">here</a></p>
-				<p>To add a visit click <a href="${url }patient/esthetic/visit/add/${patient.id}">here</a></p>
+				<p>To add a nutrition visit click here <a href="${url }patient/nutrition/visit/add/${patient.id}"><span class="glyphicon glyphicon-arrow-right"></span></a></p>
+				<p>To add an esthetic visit click here <a href="${url }patient/esthetic/visit/add/${patient.id}"><span class="glyphicon glyphicon-arrow-right"></span></a></p>
 			</div>
 		</div>
 		<c:if test="${fn:length(patient.visits)>0}">
@@ -50,8 +50,11 @@
 									<td>${visit.reason}</td>
 									<td><fmt:formatDate pattern="dd MMMM yyyy"  value="${visit.visitTime}" /></td>
 									<td>${visit.weight}</td>
-									<td><a class="btn btn-sm" href="${url}patient/nutrition/visit/view/${visit.id}"><span class="glyphicon glyphicon-search"></span></a></td>
-									<td><a class="btn btn-sm" href="${url}patient/visit/edit/${visit.id}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+									<td>
+										<a class="btn btn-sm" href="${url}patient/nutrition/visit/view/${visit.id}"><span class="glyphicon glyphicon-search"></span></a>
+										|
+										<a class="btn btn-sm" href="${url}patient/nutrition/visit/add/${patient.id}?visitId=${visit.id}"><span class="glyphicon glyphicon-pencil"></span></a>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -67,14 +70,18 @@
 				</div>
 				<div class="panel-body">
 					<table class="table table-striped">
-						<tr><th>identity</th><th># sessions</th><th>First session</th><th>last</th><th>Actions</th></tr>
+						<tr><th>identity</th><th># sessions</th><th>First session</th><th>last session</th><th>Actions</th></tr>
 						<c:forEach items="${patient.estheticVisits}" var="evisit">
 							<tr>
 								<td>${evisit.identity}</td>
 								<td>${fn:length(evisit.sessions)}</td>
 								<td>${evisit.sessions[0].date}</td>
 								<td>${evisit.sessions[evisitSize-1].date}</td>
-								<td>view | edit</td>
+								<td>
+									<a href="${url}patient/esthetic/visit/view/${evisit.id}"><span class="glyphicon glyphicon-search"></span></a>
+									| 
+									<a href="${url}patient/esthetic/visit/add/${patient.id}?visitId=${evisit.id}"><span class="glyphicon glyphicon-pencil"></span></a>
+								</td>
 						</c:forEach>
 					</table>
 				</div>

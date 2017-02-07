@@ -150,8 +150,15 @@ public class PatientController {
      *  nutrition Visit controller methods
      */
     @RequestMapping("/nutrition/visit/add/{id}")
-    public String addVisitForm(@PathVariable("id") long id ,Model model){
-    	model.addAttribute("visit", new Visit());
+    public String addVisitForm(@RequestParam(value ="visitId" , required = false) Long visitId, @PathVariable("id") long id ,Model model){
+    	Visit visit =null ;
+        if(visitId != null && visitId >0){
+            visit = visitService.getVisitById(visitId);
+        }
+        if(visit ==null){
+            visit = new Visit();
+        }
+        model.addAttribute("visit", visit);
     	model.addAttribute("patientId", id);
     	return "patient/addVisit";
     }
@@ -169,14 +176,21 @@ public class PatientController {
     	    visit.setAfterPath(afterFile.getOriginalFilename());
     	}
     	
+    	
+    	if(visit.getId()<=0){
     	visit = visitService.addVisit(visit, patientId);
+    	}
+    	else{
+    	    logger.info("updating user" + visit.getId());
+    	    visit = visitService.updateVisit(visit);
+    	}
     	
     	if(isBeforeFile){
     	    byte[] bytes;
             try {
                 bytes = beforeFile.getBytes();
             
-            Path path = Paths.get(MedidocKeys.UPLOADED_FOLDER + patientId+"/" +visit.getId()+"/"  +beforeFile.getOriginalFilename());
+            Path path = Paths.get(MedidocKeys.UPLOADED_FOLDER + patientId+"/nutrition/" +visit.getId()+"/"  +beforeFile.getOriginalFilename());
             Files.createDirectories(path.getParent());
             Files.write(path, bytes, StandardOpenOption.CREATE);
             } catch (IOException e) {
@@ -188,7 +202,7 @@ public class PatientController {
             try {
                 bytes = afterFile.getBytes();
             
-            Path path = Paths.get(MedidocKeys.UPLOADED_FOLDER + patientId+"/" +visit.getId()+"/"  +afterFile.getOriginalFilename());
+            Path path = Paths.get(MedidocKeys.UPLOADED_FOLDER + patientId+"/nutrition/" +visit.getId()+"/"  +afterFile.getOriginalFilename());
             Files.createDirectories(path.getParent());
             Files.write(path, bytes, StandardOpenOption.CREATE);
             } catch (IOException e) {
@@ -212,7 +226,7 @@ public class PatientController {
      */
     
     @RequestMapping("/esthetic/visit/add/{patientId}")
-    public String addEditVisit(@RequestParam(value= "id" , required=false) Long id, @PathVariable long patientId, Model model){
+    public String addEditVisit(@RequestParam(value= "visitId" , required=false) Long id, @PathVariable long patientId, Model model){
         EstheticVisit visit = null;
         if(id !=null && id >0){
             //call visit service
@@ -228,19 +242,83 @@ public class PatientController {
     }
     
     @RequestMapping(value = "/esthetic/visit/add" , method = RequestMethod.POST)
-    public String addEditVisit(@ModelAttribute("visit") EstheticVisit visit , BindingResult result){
+    public String addEditVisit(@RequestParam("facefile") MultipartFile[] faceFiles ,@RequestParam("rightfile") MultipartFile[] rightFiles ,@RequestParam("leftfile") MultipartFile[] leftFiles ,@ModelAttribute("visit") EstheticVisit visit , BindingResult result){
         long patientId = visit.getPatient().getId();
+        boolean[] isFaceFile = new boolean[faceFiles.length];
+        boolean[] isRightFile = new boolean[leftFiles.length];
+        boolean[] isLeftFile = new boolean[rightFiles.length];
+        if(visit.getId() > 0){
+            visit.setSessions(estheticVisitService.getEstheticVisitById(visit.getId()).getSessions());
+        }
+        for(int i=0;i<faceFiles.length;i++){
+            isFaceFile[i] = !faceFiles[i].isEmpty() && !faceFiles[i].getOriginalFilename().equals("");
+            if(isFaceFile[i]){
+                visit.getSessions().get(i).setFacePath(faceFiles[i].getOriginalFilename());
+            }
+            isRightFile[i] = !rightFiles[i].isEmpty() && !rightFiles[i].getOriginalFilename().equals("");
+            if(isRightFile[i]){
+                visit.getSessions().get(i).setRightProfilePath(rightFiles[i].getOriginalFilename());
+            }
+            isLeftFile[i] = !leftFiles[i].isEmpty() && !leftFiles[i].getOriginalFilename().equals("");
+            if(isLeftFile[i]){
+                visit.getSessions().get(i).setLeftProfilePath(leftFiles[i].getOriginalFilename());
+            }
+        }
         if(visit.getId() <= 0){
-            estheticVisitService.addEstheticVisit(visit , patientId);
+            visit = estheticVisitService.addEstheticVisit(visit , patientId);
+            //visit  = estheticVisitService.getEstheticVisitById(visit.getId());
         }
         else{
-            estheticVisitService.updateEstheticVisit(visit);
+           visit = estheticVisitService.updateEstheticVisit(visit);
         }
         
-        /*logger.info("Size of the ssesions "+ visit.getSessions().size()); //this is the hard part
-        for(EstheticSession session : visit.getSessions()){
-            logger.info("observation : " + session.getObservations());
-        }*/
+        for(int i=0;i<faceFiles.length;i++){
+            logger.info("id de la session : " + visit.getSessions().get(i).getId());
+            if(isRightFile[i]){
+                byte[] bytes;
+                try {
+                    bytes = rightFiles[i].getBytes();
+                
+                Path path = Paths.get(MedidocKeys.UPLOADED_FOLDER + patientId+"/esthetic/" +visit.getId()+"/" +visit.getSessions().get(i).getId()+"/" +rightFiles[i].getOriginalFilename());
+                Files.createDirectories(path.getParent());
+                Files.write(path, bytes, StandardOpenOption.CREATE);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(isFaceFile[i]){
+                byte[] bytes;
+                try {
+                    bytes = faceFiles[i].getBytes();
+                    
+                    Path path = Paths.get(MedidocKeys.UPLOADED_FOLDER + patientId+"/esthetic/" +visit.getId()+"/"+visit.getSessions().get(i).getId()+"/"  +faceFiles[i].getOriginalFilename());
+                    Files.createDirectories(path.getParent());
+                    Files.write(path, bytes, StandardOpenOption.CREATE);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(isLeftFile[i]){
+                byte[] bytes;
+                try {
+                    bytes = leftFiles[i].getBytes();
+                    
+                    Path path = Paths.get(MedidocKeys.UPLOADED_FOLDER + patientId+"/esthetic/" +visit.getId()+"/" +visit.getSessions().get(i).getId()+"/" +leftFiles[i].getOriginalFilename());
+                    Files.createDirectories(path.getParent());
+                    Files.write(path, bytes, StandardOpenOption.CREATE);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         return "redirect:/patient/view?id="+visit.getPatient().getId();
+    }
+    
+    @RequestMapping(value="/esthetic/visit/view/{id}")
+    public String viewEstheticVisit(@PathVariable("id") long id , Model model){
+        
+        EstheticVisit visit = estheticVisitService.getEstheticVisitById(id);
+        model.addAttribute("visit", visit);
+        return "esthetic/viewVisit";
     }
 }

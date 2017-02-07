@@ -20,9 +20,11 @@ public class EstheticVisitDaoImpl implements EstheticVisitDao{
     private Log logger = LogFactory.getLog(EstheticVisitDaoImpl.class);
     
     @Override
+    @SuppressWarnings("unchecked")
     public EstheticVisit getEstheticVisitById(long id) {
-        
-        return entityManager.find(EstheticVisit.class, id);
+        EstheticVisit visit = entityManager.find(EstheticVisit.class, id);
+        visit.setSessions(entityManager.createQuery("select session from EstheticSession session where session.estheticVisit.id = :visitId order by session.date ASC").setParameter("visitId", visit.getId()).getResultList());
+        return visit;
     }
 
     @Override

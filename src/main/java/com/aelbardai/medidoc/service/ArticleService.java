@@ -9,6 +9,8 @@ public interface ArticleService {
 	public Article getArticleById(long id);
 
 	public List<Article> getAllArticle();
+	
+	public List<Article> getArticlesByType(String type);
 
 	public Article addArticle(Article article);
 

@@ -1,6 +1,5 @@
 package com.aelbardai.medidoc.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -26,17 +25,19 @@ public class ArticleController {
 	@RequestMapping(value = "/health" ,method = RequestMethod.GET)
     public String listHealthArticles(ModelMap model ) {
     	System.out.println("from the add GET method");
-    	List<Article> articles = new ArrayList<Article>(); // get it from the service layer once it is implemented
-    	articles = articleService.getAllArticle();
-    	Article article = new Article();
-    	article.setAuthor("abderrahmane");
-    	article.setContent("<p>some content <em>yo some shit</em></p><p>some other shit</p>");
-    	article.setTitle("6 myths about dairy products");
-    	articles.add(article);
+    	List<Article> articles = articleService.getArticlesByType("HEALTH");
     	model.addAttribute("articles", articles);
         return "articles/list";
     }
 	
+	
+   @RequestMapping(value = "/workout" ,method = RequestMethod.GET)
+    public String listWorkoutArticles(ModelMap model ) {
+        System.out.println("from the add GET method");
+        List<Article> articles = articleService.getArticlesByType("WORKOUT");
+        model.addAttribute("articles", articles);
+        return "articles/list";
+    }
 	@RequestMapping("/view")
 	public String viewArticle(@RequestParam("id") long id, Model model){
 		

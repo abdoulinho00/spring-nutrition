@@ -42,5 +42,11 @@ public class ArticleDaoImpl implements ArticleDao {
 	public void deleteArticle(long id) {
 		entityManager.remove(getArticleById(id));
 	}
+	
+	@SuppressWarnings("unchecked")
+    @Override
+    public List<Article> getArticlesByType(String type) {
+	    return entityManager.createQuery("select article from Article article where article.type = :type order by article.modifiedAt desc ").setParameter("type", type).getResultList();
+    }
 
 }

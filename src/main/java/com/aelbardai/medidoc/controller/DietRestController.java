@@ -22,7 +22,7 @@ import com.aelbardai.medidoc.beans.diet.MenuItem;
 import com.aelbardai.medidoc.beans.patient.Visit;
 import com.aelbardai.medidoc.configuration.MedidocKeys;
 import com.aelbardai.medidoc.service.MenuItemService;
-import com.aelbardai.medidoc.service.PatientService;
+import com.aelbardai.medidoc.service.VisitService;
 
 @RestController
 @RequestMapping("/api")
@@ -32,7 +32,7 @@ public class DietRestController {
     @Autowired
     MenuItemService menuItemService;
     @Autowired
-    PatientService patientService;
+    VisitService visitService;
 
     @RequestMapping(value = "/menuItem")
     @ResponseBody
@@ -51,15 +51,17 @@ public class DietRestController {
     @RequestMapping("/getchartdata/{id}")
     public List<Object[]> getChartData(@PathVariable("id") long id) {
         List<Object[]> data = new ArrayList<>();
-        Object[] object = { "Date", "Weight" };
+        Object[] object = { "Date", "Weight" , "lean mass" , "fat mass" };
         data.add(object);
-        List<Visit> visits = patientService.getPatientById(id).getVisits();
+        List<Visit> visits = visitService.getVisitByPatientId(id);
         for (int i = visits.size() - 1; i >= 0; i--) {
             Visit v = visits.get(i);
             if (v.getVisitTime() != null && v.getWeight() > 0) {
-                Object[] obj = new Object[2];
+                Object[] obj = new Object[object.length];
                 obj[0] = v.getVisitTime();
                 obj[1] = v.getWeight();
+                obj[2] = v.getLeanMass();
+                obj[3] = v.getFatMass();
                 data.add(obj);
             }
         }
@@ -85,13 +87,13 @@ public class DietRestController {
         return data;
     }
 
-    @RequestMapping(value = "/getImage/{patientId}/{id}")
+    @RequestMapping(value = "/getImage/{patientId}/nutrition/{id}")
     @ResponseBody
     public byte[] getImage(@PathVariable("id") long id, @PathVariable("patientId") long patientId, @RequestParam("imageId") String imageId,
             HttpServletRequest request) {
         // String rpath=request.getRealPath("/home/aelbardai/data");
         String rpath = MedidocKeys.UPLOADED_FOLDER;
-        rpath = rpath + "/" + patientId+"/" + id + "/" + imageId; // whatever path you used for storing the file
+        rpath = rpath + "/" + patientId+"/nutrition/" + id + "/" + imageId; // whatever path you used for storing the file
         Path path = Paths.get(rpath);
         byte[] data = null;
         try {
@@ -100,6 +102,25 @@ public class DietRestController {
             // TODO Auto-generated catch block
             // e.printStackTrace();
             logger.error("file not found : " + id + "/" + imageId);
+        }
+        return data;
+    }
+    
+    @RequestMapping(value = "/getImage/{patientId}/esthetic/{id}/{sessionId}")
+    @ResponseBody
+    public byte[] getEstheticImage(@PathVariable("sessionId") long sessionId , @PathVariable("id") long id, @PathVariable("patientId") long patientId, @RequestParam("imageId") String imageId,
+            HttpServletRequest request) {
+        // String rpath=request.getRealPath("/home/aelbardai/data");
+        String rpath = MedidocKeys.UPLOADED_FOLDER;
+        rpath = rpath + "/" + patientId+"/esthetic/" + id + "/"+sessionId +"/" + imageId; // whatever path you used for storing the file
+        Path path = Paths.get(rpath);
+        byte[] data = null;
+        try {
+            data = Files.readAllBytes(path);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            // e.printStackTrace();
+            logger.error("file not found : " + rpath);
         }
         return data;
     }

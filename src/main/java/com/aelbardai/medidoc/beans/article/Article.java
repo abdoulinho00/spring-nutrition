@@ -32,7 +32,7 @@ public class Article implements Serializable {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date modifiedAt;
-	private ArticleType type;
+	private String type;
 	public long getId() {
 		return id;
 	}
@@ -69,10 +69,10 @@ public class Article implements Serializable {
 	public void setWrittenAt(Date writtenAt) {
 		this.writtenAt = writtenAt;
 	}
-	public ArticleType getType() {
+	public String getType() {
 		return type;
 	}
-	public void setType(ArticleType type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 	public static long getSerialversionuid() {

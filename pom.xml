@@ -12,6 +12,7 @@
 		<jdk.version>1.7</jdk.version>
 		<hibernate.version>4.3.10.Final</hibernate.version>
 		<mysql.connector.version>5.1.31</mysql.connector.version>
+		<springsecurity.version>4.0.1.RELEASE</springsecurity.version>
 	</properties>
 	<dependencies>
 		<!-- servlet & jsp dependencies -->
@@ -92,6 +93,24 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.5.0</version>
 		</dependency>
+		
+		<!-- spring security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${springsecurity.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${springsecurity.version}</version>
+		</dependency>
+		
+		<dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>${springsecurity.version}</version>
+        </dependency>
 
 
 	</dependencies>

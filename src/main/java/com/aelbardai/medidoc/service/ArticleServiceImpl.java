@@ -1,5 +1,6 @@
 package com.aelbardai.medidoc.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +30,14 @@ public class ArticleServiceImpl implements ArticleService{
 
 	@Override
 	public Article addArticle(Article article) {
+	    article.setWrittenAt(new Date());
+	    article.setModifiedAt(new Date());
 		return articleDao.addArticle(article);
 	}
 
 	@Override
 	public Article updateArticle(Article article) {
+	    article.setModifiedAt(new Date());
 		return articleDao.updateArticle(article);
 	}
 
@@ -41,5 +45,10 @@ public class ArticleServiceImpl implements ArticleService{
 	public void deleteArticle(long id) {
 		articleDao.deleteArticle(id);
 	}
+
+    @Override
+    public List<Article> getArticlesByType(String type) {
+        return articleDao.getArticlesByType(type);
+    }
 
 }

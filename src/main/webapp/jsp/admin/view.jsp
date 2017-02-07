@@ -14,31 +14,23 @@
 
 	<div class="container-fluid">
 		<%@ include file="/jsp/layout/banner-header.jspf"%>
-		
-		
-		<div class="">
-			<ul class="sidebar-nav">
-				<li><a href="#">somthing</a></li>
-				<li><a href="#">somthing</a></li>
-				<li><a href="#">somthing</a></li>
-				<li><a href="#">somthing</a></li>
-				<li><a href="#">somthing</a></li>
-			</ul>
-		</div>
 		<div class="container-fluid">
-			<h1>Control Panel</h1>
+			<h1 class="text-primary">Control Panel</h1>
 			
-			<div class="panel panel-default">
-				<ul>
-					<li><a href="${url}admin/menu">Manage menu items</a></li>
-				</ul>
+			<div class="row">
+				<div class="col-md-6">
+					<ul class="list-group ">
+						<li class="list-group-item"><a href="${url}admin/menu">Manage menu items</a></li>
+					</ul>
+				</div>
 			</div>
-			
-			<div class="panel panel-default">
-				<ul>
-					<li><a href="${url}admin/articles">Manage articles</a></li>
-					<li><a href="${url}admin/articles/add">add article</a></li>
-				</ul>
+			<div class="row">
+				<div class="col-md-6">
+					<ul class="list-group ">
+						<li class="list-group-item"><a href="${url}admin/articles">Manage articles</a></li>
+						<li class="list-group-item"><a href="${url}admin/articles/add">Add article</a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
 		
