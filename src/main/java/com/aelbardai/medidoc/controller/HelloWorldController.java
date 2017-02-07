@@ -20,4 +20,9 @@ public class HelloWorldController {
         model.addAttribute("greeting", "Hello World Again, from Spring 4 MVC");
         return "layout/meta";
     }
+    
+    @RequestMapping("/Access_Denied")
+    public String accessDenied(){
+        return "admin/access_denied";
+    }
 }

@@ -23,7 +23,8 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.aelbardai.medidoc.controller" , 
 		"com.aelbardai.medidoc.service" , 
-		"com.aelbardai.medidoc.dao"})
+		"com.aelbardai.medidoc.dao" , 
+		"com.aelbardai.medidoc.configuration"})
 public class HelloWorldConfiguration extends WebMvcConfigurerAdapter{
 	
     @Bean
