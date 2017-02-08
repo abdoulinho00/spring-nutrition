@@ -20,6 +20,11 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
  
+/**
+ * 
+ * @author aelbardai
+ *
+ */
 @Configuration
 @EnableTransactionManagement
 @PropertySource(value = { "classpath:application.properties" })
@@ -28,7 +33,10 @@ public class JPAConfiguration {
     @Autowired
     private Environment environment;
     
-    
+    /**
+     * 
+     * @return
+     */
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
@@ -38,6 +46,10 @@ public class JPAConfiguration {
         return sessionFactory;
      }
     
+    /**
+     * 
+     * @return
+     */
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -47,7 +59,12 @@ public class JPAConfiguration {
         dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
         return dataSource;
     }
- 
+    
+    /**
+     * 
+     * @return
+     * @throws NamingException
+     */
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws NamingException {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
@@ -61,14 +78,22 @@ public class JPAConfiguration {
     /*
      * Provider specific adapter.
      */
+    /**
+     * 
+     * @return
+     * 
+     */
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
-        HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
-        return hibernateJpaVendorAdapter;
+        return new HibernateJpaVendorAdapter();
     }
  
     /*
      * Here you can specify any provider specific properties.
+     */
+    /**
+     * 
+     * @return
      */
     private Properties jpaProperties() {
         Properties properties = new Properties();
@@ -82,7 +107,12 @@ public class JPAConfiguration {
         properties.put("hibernate.use_sql_comments", environment.getRequiredProperty("hibernate.use_sql_comments"));
         return properties;
     }
- 
+    
+    /**
+     * 
+     * @param emf
+     * @return
+     */
     @Bean
     @Autowired
     public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {

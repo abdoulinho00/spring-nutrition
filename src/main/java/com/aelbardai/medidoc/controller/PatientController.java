@@ -45,7 +45,11 @@ public class PatientController {
 	private static final Logger logger = Logger.getLogger(PatientController.class);
 	
 	
-	
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
     @RequestMapping(value = "/add" ,method = RequestMethod.GET)
     public String addPatientform(ModelMap model ) {
     	logger.warn("from the add GET method");
@@ -57,11 +61,16 @@ public class PatientController {
         return "patient/add-edit";
     }
     
+    /**
+     * 
+     * @param file
+     * @param patient
+     * @param result
+     * @return
+     */
     @RequestMapping(value = "/add" ,method = RequestMethod.POST)
     public String addPatient(@RequestParam("file") MultipartFile file, Patient patient, BindingResult result ) {
         
-        //patient.getVisits().get(0).setPatient(patient);
-    	
     	if(file.isEmpty()){
     	    patient = patientService.addPatient(patient);
             logger.info("empty file");
@@ -76,14 +85,19 @@ public class PatientController {
                 Files.createDirectories(path.getParent());
                 Files.write(path, bytes, StandardOpenOption.CREATE);
             } catch (IOException e) {
-                //e.printStackTrace();
-                logger.error("file not found : " + file.getOriginalFilename());
+                logger.error("file not found : " + file.getOriginalFilename() , e);
             }
             
         }
     	return "redirect:/patient/list";
     }
     
+    /**
+     * 
+     * @param model
+     * @param id
+     * @return
+     */
     @RequestMapping(value="/edit", params={"id"}, method= RequestMethod.GET)
     public String editPatientForm(ModelMap model,  @RequestParam(value="id") long id){
     	
@@ -93,6 +107,13 @@ public class PatientController {
     	return "patient/add-edit";
     }
     
+    /**
+     * 
+     * @param file
+     * @param patient
+     * @param result
+     * @return
+     */
     @RequestMapping(value="/edit" ,  method= RequestMethod.POST)
     public String editPatient(@RequestParam("file") MultipartFile file, Patient patient, BindingResult result){
         logger.info("from the edit post");
@@ -111,8 +132,7 @@ public class PatientController {
                 Files.createDirectories(path.getParent());
                 Files.write(path, bytes, StandardOpenOption.CREATE);
             } catch (IOException e) {
-                //e.printStackTrace();
-                logger.error("file not found : " + file.getOriginalFilename());
+                logger.error("file not found : " + file.getOriginalFilename() , e);
             }
             
         }
@@ -120,13 +140,23 @@ public class PatientController {
     	return "redirect:/patient/";
     }
     
+    /**
+     * 
+     * @param patientId
+     * @return
+     */
     @RequestMapping(value="delete" , method =RequestMethod.POST)
     public String deletePatient(@RequestParam("id") long patientId){
     	patientService.deletePatient(patientId);
     	return "redirect:/patient";
     }
     
-    
+    /**
+     * 
+     * @param model
+     * @param id
+     * @return
+     */
     @RequestMapping(value="/view" ,method = RequestMethod.GET)
     public String viewPatient(ModelMap model ,  @RequestParam(value="id") long id){
     	Patient patient = patientService.getPatientById(id);
@@ -138,6 +168,11 @@ public class PatientController {
     	return "patient/view";
     }
     
+    /**
+     * 
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/list", "/", ""}, method = RequestMethod.GET)
     public String listPatient(ModelMap model) {
     	System.out.println("from the list GET method");
@@ -150,6 +185,13 @@ public class PatientController {
     
     /*
      *  nutrition Visit controller methods
+     */
+    /**
+     * 
+     * @param visitId
+     * @param id
+     * @param model
+     * @return
      */
     @RequestMapping("/nutrition/visit/add/{id}")
     public String addVisitForm(@RequestParam(value ="visitId" , required = false) Long visitId, @PathVariable("id") long id ,Model model){
@@ -165,6 +207,14 @@ public class PatientController {
     	return "patient/addVisit";
     }
     
+    /**
+     * 
+     * @param beforeFile
+     * @param afterFile
+     * @param visit
+     * @param result
+     * @return
+     */
     @RequestMapping(value="/nutrition/visit/add" , method = RequestMethod.POST)
     public String addVisit(@RequestParam("beforefile") MultipartFile beforeFile ,@RequestParam("afterfile") MultipartFile afterFile,Visit visit, BindingResult result){
     	long patientId = visit.getPatient().getId();
@@ -196,7 +246,7 @@ public class PatientController {
             Files.createDirectories(path.getParent());
             Files.write(path, bytes, StandardOpenOption.CREATE);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Couldn't write file " ,e);
             }
     	}
     	if(isAfterFile){
@@ -208,13 +258,19 @@ public class PatientController {
             Files.createDirectories(path.getParent());
             Files.write(path, bytes, StandardOpenOption.CREATE);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Couldn't write file " ,e);
             }
     	}
     	
     	return "redirect:/patient/view?id="+visit.getPatient().getId();
     }
     
+    /**
+     * 
+     * @param id
+     * @param model
+     * @return
+     */
     @RequestMapping(value="/nutrition/visit/view/{id}")
     public String viewVisit(@PathVariable("id") long id , Model model){
         
@@ -226,12 +282,17 @@ public class PatientController {
     /*
      * Esthetic visit controller methods
      */
-    
+    /**
+     * 
+     * @param id
+     * @param patientId
+     * @param model
+     * @return
+     */
     @RequestMapping("/esthetic/visit/add/{patientId}")
     public String addEditVisit(@RequestParam(value= "visitId" , required=false) Long id, @PathVariable long patientId, Model model){
         EstheticVisit visit = null;
         if(id !=null && id >0){
-            //call visit service
             visit = estheticVisitService.getEstheticVisitById(id) ;
             logger.info("patient id "  + visit.getPatient().getId());
         }
@@ -243,6 +304,15 @@ public class PatientController {
         return "esthetic/add-edit";
     }
     
+    /**
+     * 
+     * @param faceFiles
+     * @param rightFiles
+     * @param leftFiles
+     * @param visit
+     * @param result
+     * @return
+     */
     @RequestMapping(value = "/esthetic/visit/add" , method = RequestMethod.POST)
     public String addEditVisit(@RequestParam("facefile") MultipartFile[] faceFiles ,@RequestParam("rightfile") MultipartFile[] rightFiles ,@RequestParam("leftfile") MultipartFile[] leftFiles ,@ModelAttribute("visit") EstheticVisit visit , BindingResult result){
         long patientId = visit.getPatient().getId();
@@ -268,7 +338,6 @@ public class PatientController {
         }
         if(visit.getId() <= 0){
             visit = estheticVisitService.addEstheticVisit(visit , patientId);
-            //visit  = estheticVisitService.getEstheticVisitById(visit.getId());
         }
         else{
            visit = estheticVisitService.updateEstheticVisit(visit);
@@ -285,7 +354,7 @@ public class PatientController {
                 Files.createDirectories(path.getParent());
                 Files.write(path, bytes, StandardOpenOption.CREATE);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.error("Couldn't write file " ,e);
                 }
             }
             if(isFaceFile[i]){
@@ -297,7 +366,7 @@ public class PatientController {
                     Files.createDirectories(path.getParent());
                     Files.write(path, bytes, StandardOpenOption.CREATE);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.error("Couldn't write file " ,e);
                 }
             }
             if(isLeftFile[i]){
@@ -309,13 +378,19 @@ public class PatientController {
                     Files.createDirectories(path.getParent());
                     Files.write(path, bytes, StandardOpenOption.CREATE);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.error("Couldn't write file " ,e);
                 }
             }
         }
         return "redirect:/patient/view?id="+visit.getPatient().getId();
     }
     
+    /**
+     * 
+     * @param id
+     * @param model
+     * @return
+     */
     @RequestMapping(value="/esthetic/visit/view/{id}")
     public String viewEstheticVisit(@PathVariable("id") long id , Model model){
         

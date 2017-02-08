@@ -17,6 +17,7 @@
 			</div>
 			<div class="panel-body">
 				<form method="post" action="<c:url value='/patient/nutrition/visit/add'/>" enctype="multipart/form-data">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<input type="hidden" name="patient.id" value="${patientId}" />
 					<input type="hidden" name="id" value="${visit.id}" />
 					<div class="row">
@@ -139,10 +140,10 @@
 							<input type="hidden" name="beforePath" value="${visit.beforePath}"/>
 							<input type="hidden" name="afterPath" value="${visit.afterPath}"/>
 							<strong>Before</strong><hr/>
-							<img src="${url}api/getImage/${patientId}/nutrition/${visit.id}?imageId=${visit.beforePath}" class="img-thumbnail img-responsive"/>
+							<img src="${url}api/getImage/${patientId}/nutrition/${visit.id}?imageId=${visit.beforePath}" class="img-thumbnail img-responsive" alt="before image"/>
 							<hr>
 							<strong>After</strong><hr/>
-							<img src="${url}api/getImage/${patientId}/nutrition/${visit.id}?imageId=${visit.afterPath}" class="img-thumbnail img-responsive"/>
+							<img src="${url}api/getImage/${patientId}/nutrition/${visit.id}?imageId=${visit.afterPath}" class="img-thumbnail img-responsive" alt="after image"/>
 						</div>
 					</div>
 					<button type="submit" class="btn btn-default">Add</button>

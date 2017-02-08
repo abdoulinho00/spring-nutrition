@@ -22,6 +22,8 @@
 		<div class="form-container">
 			<form:form method="POST" modelAttribute="patient" action="${action}" id="formSelector"
 				class="form-horizontal" enctype="multipart/form-data">
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
 				<c:if test="${ patient.id > 0 }">
 					<form:input type="hidden" path="id" value="${patient.id}" />
 					<form:input type="hidden" path="visits[0].id" value="${patient.visits[0].id}" />

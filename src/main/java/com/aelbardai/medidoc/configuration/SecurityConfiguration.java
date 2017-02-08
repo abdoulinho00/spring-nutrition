@@ -1,5 +1,7 @@
 package com.aelbardai.medidoc.configuration;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -23,18 +25,28 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Autowired
     @Qualifier("customUserDetailsService")
     UserDetailsService userDetailsService;
-    
     @Autowired
     PersistentTokenRepository tokenRepository;
+    private final Log logger  = LogFactory.getLog(SecurityConfiguration.class);
     
+    /**
+     * 
+     * @param auth
+     */
     @Autowired
-    public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("bill").password("abc123").roles("USER");
+    public void configureGlobalSecurity(AuthenticationManagerBuilder auth) {
+        try {
+            auth.inMemoryAuthentication().withUser("bill").password("abc123").roles("USER");
+         
         auth.inMemoryAuthentication().withUser("admin").password("root123").roles("ADMIN");
         auth.inMemoryAuthentication().withUser("doc").password("doc123").roles("DOCTOR");
         auth.inMemoryAuthentication().withUser("mariam").password("mariam").roles("DOCTOR"  , "ADMIN");
         auth.userDetailsService(userDetailsService);
         auth.authenticationProvider(authenticationProvider());
+        }
+        catch (Exception e) {
+            logger.error("Problem with spring security configuration" ,e);
+        }
     }
      
     @Override
@@ -53,11 +65,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
   
     }
     
+    /**
+     * 
+     * @return
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
- 
+    
+    /**
+     * 
+     * @return
+     */
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -65,14 +85,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
- 
+    
+    /**
+     * 
+     * @return
+     */
     @Bean
     public PersistentTokenBasedRememberMeServices getPersistentTokenBasedRememberMeServices() {
         PersistentTokenBasedRememberMeServices tokenBasedservice = new PersistentTokenBasedRememberMeServices(
                 "remember-me", userDetailsService, tokenRepository);
         return tokenBasedservice;
     }
- 
+    
+    /**
+     * 
+     * @return
+     */
     @Bean
     public AuthenticationTrustResolver getAuthenticationTrustResolver() {
         return new AuthenticationTrustResolverImpl();

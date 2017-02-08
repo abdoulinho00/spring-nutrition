@@ -14,11 +14,11 @@
 		<h1>${visit.patient.fullname}</h1>
 		<div class="row text-center">
 			<div class="col-md-4 col-md-offset-2">
-				<img class="img-responsive" src="${url}api/getImage/${visit.patient.id}/nutrition/${visit.id}?imageId=${visit.beforePath}" />
+				<img class="img-responsive" src="${url}api/getImage/${visit.patient.id}/nutrition/${visit.id}?imageId=${visit.beforePath}" alt="before image"/>
 				
 			</div>
 			<div class="col-md-4"> 
-				<img  class=" img-responsive" src="${url}api/getImage/${visit.patient.id}/nutrition/${visit.id}?imageId=${visit.afterPath}" />
+				<img  class=" img-responsive" src="${url}api/getImage/${visit.patient.id}/nutrition/${visit.id}?imageId=${visit.afterPath}" alt="after image" />
 			</div>
 		</div>
 		<%@ include file="/jsp/layout/footer.jspf"%>

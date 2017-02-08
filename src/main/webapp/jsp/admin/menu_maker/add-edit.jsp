@@ -20,6 +20,7 @@
 				</div>
 				<div class="panel-body">
 					<form method="post">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<input type="hidden" name="id" value="${menuItem.id}" />
 						<div class="form-group">
 							<label>Name : </label> 

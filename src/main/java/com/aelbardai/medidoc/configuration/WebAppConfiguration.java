@@ -23,6 +23,11 @@ import org.springframework.web.servlet.view.JstlView;
 
 import com.aelbardai.medidoc.util.RoleToUserProfileConverter;
 
+/**
+ * 
+ * @author aelbardai
+ *
+ */
 @Configuration
 @Import(JPAConfiguration.class)
 @EnableWebMvc
@@ -32,27 +37,24 @@ import com.aelbardai.medidoc.util.RoleToUserProfileConverter;
 		"com.aelbardai.medidoc.util", 
 		"com.aelbardai.medidoc.configuration"
 		})
-public class HelloWorldConfiguration extends WebMvcConfigurerAdapter{
+public class WebAppConfiguration extends WebMvcConfigurerAdapter{
 	
     @Autowired
     RoleToUserProfileConverter roleToUserProfileConverter;
     
+    /**
+     * 
+     * @return
+     */
     @Bean
     public MultipartResolver multipartResolver() {
         return new StandardServletMultipartResolver();
     }
-
-
-	/*@Bean
-    public ViewResolver viewResolver() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setViewClass(JstlView.class);
-        viewResolver.setPrefix("/jsp/");
-        viewResolver.setSuffix(".jsp");
- 
-        return viewResolver;
-    }*/
-	
+    
+    /**
+     * 
+     * @return
+     */
     @Bean
     public MessageSource messageSource() {
     	System.out.println("from the message ressources");
@@ -61,35 +63,10 @@ public class HelloWorldConfiguration extends WebMvcConfigurerAdapter{
         return messageSource;
     }
     
-   /* @Bean(name = "localeResolver")
-    public LocaleResolver localeResolver(){
-	CookieLocaleResolver resolver = new CookieLocaleResolver();
-	resolver.setDefaultLocale(new Locale("ar_MA"));
-	resolver.setCookieName("myLocaleCookie");
-	resolver.setCookieMaxAge(4800);
-	return resolver;
-    }
-    
-    public void addInterceptors(InterceptorRegistry registry) {
-    	   registry.addInterceptor(localeChangeInterceptor());
-    	} 
- 
-    @Bean 
-    public LocaleChangeInterceptor localeChangeInterceptor(){
-        LocaleChangeInterceptor localeChangeInterceptor=new LocaleChangeInterceptor();
-        localeChangeInterceptor.setParamName("language");
-        return localeChangeInterceptor;
-    }*/
- 
-	
-	/*@Bean
-    public ReloadableResourceBundleMessageSource messageSource(){
-        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("classpath:content.Language");
-        messageSource.setDefaultEncoding("UTF-8");
-        return messageSource;
-    }*/
-
+    /**
+     * 
+     * @return
+     */
     @Bean
     public CookieLocaleResolver localeResolver(){
         CookieLocaleResolver localeResolver = new CookieLocaleResolver();
@@ -98,19 +75,30 @@ public class HelloWorldConfiguration extends WebMvcConfigurerAdapter{
         localeResolver.setCookieMaxAge(3600);
         return localeResolver;
     }
-
+    
+    /**
+     * 
+     * @return
+     */
     @Bean
     public LocaleChangeInterceptor localeInterceptor(){
         LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
         interceptor.setParamName("language");
         return interceptor;
     }
-
+    
+    /**
+     * 
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeInterceptor());
     }
-
+    
+    /**
+     * 
+     * @return
+     */
     @Bean
     public InternalResourceViewResolver viewResolver(){
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -120,11 +108,17 @@ public class HelloWorldConfiguration extends WebMvcConfigurerAdapter{
         return viewResolver;
     }
     
+    /**
+     * 
+     */
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(roleToUserProfileConverter);
     }
     
+    /**
+     * 
+     */
     @Override
     public void configurePathMatch(PathMatchConfigurer matcher) {
         matcher.setUseRegisteredSuffixPatternMatch(true);

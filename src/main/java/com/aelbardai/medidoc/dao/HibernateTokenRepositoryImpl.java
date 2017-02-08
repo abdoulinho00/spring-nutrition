@@ -43,7 +43,7 @@ public class HibernateTokenRepositoryImpl extends AbstractDao<String, Persistent
             return new PersistentRememberMeToken(persistentLogin.getUsername(), persistentLogin.getSeries(),
                     persistentLogin.getToken(), persistentLogin.getLast_used());
         } catch (Exception e) {
-            logger.info("Token not found...");
+            logger.info("Token not found...", e);
             return null;
         }
     }

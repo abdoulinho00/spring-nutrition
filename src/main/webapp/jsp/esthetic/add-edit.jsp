@@ -21,6 +21,7 @@
 		</c:choose>
 			
 			<form:form method="post" class="" action="${url}patient/esthetic/visit/add" modelAttribute="visit" enctype="multipart/form-data">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<input type="hidden" name="patient.id" value="${patientId}" />
 				<input type="hidden" name="id" value="${visit.id}" />
 				<div class="form-group">

@@ -17,6 +17,11 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+/**
+ * 
+ * @author aelbardai
+ *
+ */
 @Entity
 @Table(name="visit")
 public class Visit implements Serializable {
@@ -70,10 +75,6 @@ public class Visit implements Serializable {
     @JoinColumn(name="patient_id")
 	private Patient patient;
 	
-	public Visit(){
-		
-	}
-
 	public long getId() {
 		return id;
 	}

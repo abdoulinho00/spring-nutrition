@@ -33,7 +33,12 @@ public class DietRestController {
     MenuItemService menuItemService;
     @Autowired
     VisitService visitService;
-
+    
+    /**
+     * 
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/menuItem")
     @ResponseBody
     public MenuItem getMenuItem(@RequestParam("id") long id) {
@@ -41,13 +46,18 @@ public class DietRestController {
         try {
             item = menuItemService.getMenuItem(id);
         } catch (Exception e) {
-            logger.error("entry not found");
+            logger.error("entry not found", e);
             item = new MenuItem();
         }
 
         return item;
     }
-
+    
+    /**
+     * 
+     * @param id
+     * @return
+     */
     @RequestMapping("/getchartdata/{id}")
     public List<Object[]> getChartData(@PathVariable("id") long id) {
         List<Object[]> data = new ArrayList<>();
@@ -67,12 +77,18 @@ public class DietRestController {
         }
         return data;
     }
-
+    
+    /**
+     * 
+     * @param id
+     * @param imageId
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/getImage/{id}")
     @ResponseBody
     public byte[] getImage(@PathVariable("id") long id, @RequestParam("imageId") String imageId,
             HttpServletRequest request) {
-        // String rpath=request.getRealPath("/home/aelbardai/data");
         String rpath = MedidocKeys.UPLOADED_FOLDER;
         rpath = rpath + "/" + id + "/" + imageId; // whatever path you used for storing the file
         Path path = Paths.get(rpath);
@@ -80,18 +96,23 @@ public class DietRestController {
         try {
             data = Files.readAllBytes(path);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            // e.printStackTrace();
-            logger.error("file not found : " + id + "/" + imageId);
+            logger.error("file not found : " + id + "/" + imageId , e);
         }
         return data;
     }
-
+    
+    /**
+     * 
+     * @param id
+     * @param patientId
+     * @param imageId
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/getImage/{patientId}/nutrition/{id}")
     @ResponseBody
     public byte[] getImage(@PathVariable("id") long id, @PathVariable("patientId") long patientId, @RequestParam("imageId") String imageId,
             HttpServletRequest request) {
-        // String rpath=request.getRealPath("/home/aelbardai/data");
         String rpath = MedidocKeys.UPLOADED_FOLDER;
         rpath = rpath + "/" + patientId+"/nutrition/" + id + "/" + imageId; // whatever path you used for storing the file
         Path path = Paths.get(rpath);
@@ -99,28 +120,32 @@ public class DietRestController {
         try {
             data = Files.readAllBytes(path);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            // e.printStackTrace();
-            logger.error("file not found : " + id + "/" + imageId);
+            logger.error("file not found : " + id + "/" + imageId , e);
         }
         return data;
     }
     
+    /**
+     * 
+     * @param sessionId
+     * @param id
+     * @param patientId
+     * @param imageId
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/getImage/{patientId}/esthetic/{id}/{sessionId}")
     @ResponseBody
     public byte[] getEstheticImage(@PathVariable("sessionId") long sessionId , @PathVariable("id") long id, @PathVariable("patientId") long patientId, @RequestParam("imageId") String imageId,
             HttpServletRequest request) {
-        // String rpath=request.getRealPath("/home/aelbardai/data");
         String rpath = MedidocKeys.UPLOADED_FOLDER;
-        rpath = rpath + "/" + patientId+"/esthetic/" + id + "/"+sessionId +"/" + imageId; // whatever path you used for storing the file
+        rpath = rpath + "/" + patientId+"/esthetic/" + id + "/"+sessionId +"/" + imageId; 
         Path path = Paths.get(rpath);
         byte[] data = null;
         try {
             data = Files.readAllBytes(path);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            // e.printStackTrace();
-            logger.error("file not found : " + rpath);
+            logger.error("file not found : " + rpath , e);
         }
         return data;
     }

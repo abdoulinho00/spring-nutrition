@@ -24,17 +24,17 @@
 						<div class="col-md-4">
 							<p class="text-center">Left profile</p>
 							<hr>
-							<img class="img-thumbnail img-responsive" src="${url}api/getImage/${visit.patient.id}/esthetic/${visit.id}/${session.id}?imageId=${session.leftProfilePath}" />
+							<img class="img-thumbnail img-responsive" src="${url}api/getImage/${visit.patient.id}/esthetic/${visit.id}/${session.id}?imageId=${session.leftProfilePath}" alt="left profile picture" />
 						</div>
 						<div class="col-md-4">
 							<p class="text-center">Face profile</p>
 							<hr>
-							<img class="img-thumbnail img-responsive" src="${url}api/getImage/${visit.patient.id}/esthetic/${visit.id}/${session.id}?imageId=${session.facePath}" />
+							<img class="img-thumbnail img-responsive" src="${url}api/getImage/${visit.patient.id}/esthetic/${visit.id}/${session.id}?imageId=${session.facePath}" alt="face profile picture" />
 						</div>
 						<div class="col-md-4">
 							<p class="text-center">Right profile</p>
 							<hr>
-							<img class="img-thumbnail img-responsive" src="${url}api/getImage/${visit.patient.id}/esthetic/${visit.id}/${session.id}?imageId=${session.rightProfilePath}" />
+							<img class="img-thumbnail img-responsive" src="${url}api/getImage/${visit.patient.id}/esthetic/${visit.id}/${session.id}?imageId=${session.rightProfilePath}" alt="right profile picture"/>
 						</div>
 					</div>
 				</div>

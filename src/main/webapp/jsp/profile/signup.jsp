@@ -110,13 +110,9 @@
                 </div>
             </div>
         </form:form>
-    </div>
+   
 
 		<%@ include file="/jsp/layout/footer.jspf"%>
 	</div>
 </body>
-
-<script>
-	
-</script>
 </html>
