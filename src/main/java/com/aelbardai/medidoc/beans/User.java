@@ -2,12 +2,18 @@ package com.aelbardai.medidoc.beans;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 /**
  * 
@@ -25,7 +31,7 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 4771218012478359049L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private int id;
 	private String username;
 	private String password;
 	private String firstname;
@@ -35,17 +41,23 @@ public class User implements Serializable {
 	private String phoneNumber;
 	private String adress;
 	private Date createdAt;
+	
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "APP_USER_USER_PROFILE", 
+             joinColumns = { @JoinColumn(name = "USER_ID") }, 
+             inverseJoinColumns = { @JoinColumn(name = "USER_PROFILE_ID") })
+    private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
 
 	
 	public User() {
 		super();
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -112,5 +124,15 @@ public class User implements Serializable {
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
+
+    public Set<UserProfile> getUserProfiles() {
+        return userProfiles;
+    }
+
+    public void setUserProfiles(Set<UserProfile> userProfiles) {
+        this.userProfiles = userProfiles;
+    }
+	
+	
 
 }

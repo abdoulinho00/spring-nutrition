@@ -14,11 +14,13 @@
 
 	<div class="container-fluid">
 		<%@ include file="/jsp/layout/banner-header.jspf"%>
-		<div class="container-fluid">
-			<p>you don't have the right to view this page</p>
-			<p>To logout click <a href="<c:url value='/logout'/>" >here</a></p>
-			<p>To return to the home page click <a href="<c:url value='/' />" >here</a></p>
-		</div>
+		<div class="alert alert-success lead">
+            ${success}
+        </div>
+         
+        <span class="well floatRight">
+            Go to <a href="<c:url value='/list' />">Users List</a>
+        </span>
 
 		<%@ include file="/jsp/layout/footer.jspf"%>
 	</div>

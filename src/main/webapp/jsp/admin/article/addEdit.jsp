@@ -43,6 +43,7 @@
 					</c:forEach>
 				</select>
 			</div>
+			<input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
 			<button type="submit" class="btn btn-default">Save</button>
 		</form>
 		<%@ include file="/jsp/layout/footer.jspf"%>
