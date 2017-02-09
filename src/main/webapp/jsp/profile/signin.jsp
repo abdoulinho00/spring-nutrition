@@ -56,8 +56,12 @@
 					
 				</form>
 			</div>
-			<div class="row text-center">
-						Not registered ? <a href='<c:url value="/signup"/>'>click here to sign up</a>
+			
+		</div>
+		<div class="row text-center">
+			<div class="col-md-6 col-md-offset-3">
+				<hr>
+				Not registered ? <a href='<c:url value="/signup"/>'>click here to sign up</a>
 			</div>
 		</div>
 		<%@ include file="/jsp/layout/footer.jspf"%>

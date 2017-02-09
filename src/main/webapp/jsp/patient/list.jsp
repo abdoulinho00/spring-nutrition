@@ -11,7 +11,9 @@
 	<div class="container-fluid">
 		<%@ include file="/jsp/layout/banner-header.jspf"%>
 
-		<h1 class="text-primary"><spring:message code="patient-list" /></h1>
+		<div class="well lead ">
+			<spring:message code="patient-list" />
+		</div>
 		<c:if test="${fn:length(patients)>0}">
 			<p>you have ${fn:length(patients)} patients registered</p>
 			<table class="table table-striped table-hover">
@@ -53,10 +55,11 @@
 		<c:if test="${fn:length(patients) le 0}">
 			<div class="alert alert-info text-center"> You don't have any registered patients</div>
 		</c:if>
+		<!--  
 		<p>
 			To add a patient click <a href="${url}patient/add">here</a>
 		</p>
-
+		-->
 		
 	</div>
 	<%@ include file="/jsp/layout/footer.jspf"%>

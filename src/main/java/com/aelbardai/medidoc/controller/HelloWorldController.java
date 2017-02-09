@@ -15,9 +15,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import com.aelbardai.medidoc.beans.User;
-import com.aelbardai.medidoc.beans.UserProfile;
 import com.aelbardai.medidoc.service.UserProfileService;
 import com.aelbardai.medidoc.service.UserService;
 
@@ -95,13 +95,32 @@ public class HelloWorldController {
         return "redirect:/";
     }
     
-    
-    
-    
     private boolean isCurrentAuthenticationAnonymous() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authenticationTrustResolver.isAnonymous(authentication);
     }
     
+    /*
+     * About us section mapping
+     */
+    @RequestMapping("/about-us")
+    public String aboutUs(){
+        return "about/about";
+    }
+    
+    
+    @RequestMapping("/contact")
+    public String contactUs(){
+        return "about/contact" ;
+    }
+    
+    @Autowired
+    private RequestMappingHandlerMapping requestMappingHandlerMapping;
+    @RequestMapping( value = "/sitemap", method = RequestMethod.GET )
+    public String getEndPointsInView( Model model )
+    {
+        model.addAttribute( "endPoints", requestMappingHandlerMapping.getHandlerMethods().keySet() );
+        return "about/sitemap";
+    }
 
 }

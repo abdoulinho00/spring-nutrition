@@ -32,6 +32,15 @@
 					</ul>
 				</div>
 			</div>
+			
+			<div class="row">
+				<div class="col-md-6">
+					<ul class="list-group ">
+						<li class="list-group-item"><a href="${url}admin/users">List and edit users</a></li>
+						<li class="list-group-item"><a href="${url}signup">Add user</a></li>
+					</ul>
+				</div>
+			</div>
 		</div>
 		
 		<%@ include file="/jsp/layout/footer.jspf"%>

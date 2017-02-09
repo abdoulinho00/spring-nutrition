@@ -28,10 +28,10 @@
 					<form:input type="hidden" path="id" value="${patient.id}" />
 					<form:input type="hidden" path="visits[0].id" value="${patient.visits[0].id}" />
 				</c:if>
-				<div class="panel panel-primary">
-					<div class="panel-heading">
+				<fieldset class="scheduler-border" >
+					<legend class="scheduler-border h2 text-primary" >
 						<spring:message code="patient-add-personal-information" />
-					</div>
+					</legend>
 					<div class="panel-body">
 						<!-- Patient full name -->
 						<div class="row">
@@ -53,7 +53,7 @@
 						<div class="row">
 							<div class="form-group col-md-12">
 								<label class="col-md-2 control-lable" for="fullname"> <spring:message
-										code="patient-fullname" /></label>
+										code="patient-image" text="Patient image" /></label>
 								<div class="col-md-4 text-right">
 									<input type="file" name="file" id="file"
 										 class="form-control input-sm" />
@@ -268,7 +268,7 @@
 						</div>
 
 					</div>
-				</div>
+				</fieldset>
 
 
 				<div class="panel panel-primary">

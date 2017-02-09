@@ -1,29 +1,38 @@
+<%@ include file="/jsp/layout/init.jspf"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bootstrap 3 with Google Map</title>
+    <title>Contact us</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel='shortcut icon'
+	href='${pageContext.request.contextPath}/favicon.ico'
+	type='image/x-icon' />
+
+<%@ include file="/jsp/layout/meta.jspf"%>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <link rel='shortcut icon' href='${pageContext.request.contextPath}/favicon.ico' type='image/x-icon' />
-    <!-- Bootstrap core CSS -->
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.css" rel="stylesheet" media="screen">
- 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js"></script>
-      <script src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.js"></script>
-    <![endif]-->
  
     <style>
-      #map-container { height: 600px }
+      #map-container { height: 300px }
     </style>
 </head>
 <body>
-    <div id="map-container" class="col-md-12"></div>
- 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<div class="container-fluid">
+		<%@ include file="/jsp/layout/banner-header.jspf"%>
+		<div class="row">
+			<div class="col-md-4 ">
+				<ul class="list-group">
+					<li class="list-group-item active"><strong>Physician name</strong> : John Doe</li>
+					<li class="list-group-item"><strong>Affiliated clinic</strong> : Clinic C#</li>
+					<li class="list-group-item"><strong>Open Hours</strong> : 08h - 15h00</li>
+					<li class="list-group-item">Closed On weekends</li>
+					<li class="list-group-item"><strong>Address </strong> : 4545 , Mc street Avenue , Derpinton, CA</li>
+				</ul>
+			</div>
+	    	<div id="map-container" class="col-md-8 "></div>
+	    </div>
+	    
+	    <%@ include file="/jsp/layout/footer.jspf"%>
+	</div>
     <script src="http://maps.google.com/maps/api/js?sensor=false&key=AIzaSyDmkDkxuojZNJydF_n0yVqZp7nepAMP__E"></script>
     <script>	
  

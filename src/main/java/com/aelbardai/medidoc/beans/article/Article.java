@@ -3,6 +3,7 @@ package com.aelbardai.medidoc.beans.article;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +24,7 @@ public class Article implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	private String title;
+	@Column(columnDefinition = "text")
 	private String content;
 	private String tags;
 	private String author;

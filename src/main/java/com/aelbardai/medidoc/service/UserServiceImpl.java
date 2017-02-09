@@ -1,5 +1,6 @@
 package com.aelbardai.medidoc.service;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -18,10 +19,12 @@ public class UserServiceImpl implements UserService{
  
     @Autowired
     private UserDao dao;
+    @Autowired
+    private UserProfileService userProfileService;
  
     @Autowired
     private PasswordEncoder passwordEncoder;
-     
+    
     public User findById(int id) {
         return dao.findById(id);
     }
@@ -36,11 +39,10 @@ public class UserServiceImpl implements UserService{
         if(user.getUserProfiles() == null){
             user.setUserProfiles(new HashSet<UserProfile>());
         }
-        UserProfile profile = new UserProfile();
-        profile.setType("USER");
+        UserProfile profile = userProfileService.findByType("USER");
         
         user.getUserProfiles().add(profile);
-        
+        user.setCreatedAt(new Date());
 
         dao.save(user);
     }
