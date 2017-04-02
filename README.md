@@ -23,15 +23,13 @@ cd spring-nutrition <br/>
 http://localhost:8080/medidoc <br/>
 default admin account is admin:admin
 #### About Author : 
-abderrahmane el bardai , software consultant @savoirfairelinux
+Abderrahmane El Bardai , software engineer @bell.ca
 email : elbardai.a[at]gmail.com
 #### Notice
 For any comments, features or improvments email me at spring-nutrition[at]gmail.com.
 
 ### to do 
 
-- implement the view patient
-- implement add visit to a patient
 - use google charts library instead of charts4j (more beautiful)
 - think about the other sections
 - unit testing
