@@ -20,7 +20,7 @@ cd spring-nutrition <br/>
 ./bootstrap.sh <br/>
 ./run.sh <br/>
 ## access
-http://localhost:8080/medidoc
+http://localhost:8080/medidoc <br/>
 default admin account is admin:admin
 #### About Author : 
 abderrahmane el bardai , software consultant @savoirfairelinux
