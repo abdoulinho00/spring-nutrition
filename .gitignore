@@ -8,3 +8,4 @@ provisionning/.vagrant/
 .idea/
 spring-nutrition.iml
 provisionning/*.retry
+*.DS_Store
