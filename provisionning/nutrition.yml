@@ -14,7 +14,7 @@
         line: "192.168.5.5 medidoc.vm"
   roles: 
     - role : ansible-role-mysql
-      mysql_root_password: "liferay"
+      mysql_root_password: "verycomplicatedrootpassword"
       mysql_users:
         - name: nutrition
           host: "%"

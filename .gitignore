@@ -9,3 +9,5 @@ provisionning/.vagrant/
 spring-nutrition.iml
 provisionning/*.retry
 *.DS_Store
+*.iml
+.idea/

@@ -13,15 +13,20 @@ this is a java web projects and uses the following frameworks :
 - tomcat : as web container
 
 ## provisionning
-Add this line to your /etc/hosts file :
-192.168.5.5  medidoc.vm<br/>
+Add this line to your /etc/hosts file : <br/>
+10.0.0.15  medidoc.vm<br/>
 git clone git@github.com:abdoulinho00/spring-nutrition.git <br/>
-cd spring-nutrition <br/>
+cd spring-nutrition/provisionning <br/>
 ./bootstrap.sh <br/>
+cd .. <br/>
 ./run.sh <br/>
 ## access
-http://localhost:8080/medidoc <br/>
-default admin account is admin:admin
+<p>
+http://medidoc.vm:8080/medidoc <br/>
+normal user account <em>bill:abc123</em><br/>
+admin account <em>admin:root123</em><br/>
+doctor role account <em>doc:doc123</em><br/>
+</p>
 #### About Author : 
 Abderrahmane El Bardai , software engineer @bell.ca
 email : elbardai.a[at]gmail.com
